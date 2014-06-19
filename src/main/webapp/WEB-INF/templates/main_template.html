@@ -7,20 +7,48 @@
 <script type="text/javascript" th:src="@{/lib/js/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/lib/js/bootstrap.min.js}"></script>
 <meta charset="UTF-8"/>
-<title>Medcore</title>
+<title>EkoSmiec</title>
 </head>
 <body>
 
 <nav class="navbar navbar-inverse" role="navigation">
    <div class="navbar-header">
-      <a class="navbar-brand" th:href="@{/}">EkoŚmieć</a>
+      <a class="navbar-brand" th:href="@{/}">EkoSmiec</a>
    </div>
    <div>
       <ul class="nav navbar-nav">
-      	 <li><a href="#">Link 1</a></li>
-         <li><a href="#">Link 2</a></li>
-         <li><a href="#">Link 3</a></li>
-         <li><a href="#">Link 4</a></li>
+      	 <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               Sektory <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+               <li><a href="#">Bioodpady</a></li>
+               <li><a href="#">Przetwarzalne</a></li>
+               <li><a href="#">Pozostale</a></li>
+               <li><a href="#">Wszystkie</a></li>
+            </ul>
+         </li>
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               Kontenery <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+               <li><a href="#">Bioodpady</a></li>
+               <li><a href="#">Przetwarzalne</a></li>
+               <li><a href="#">Pozostale</a></li>
+               <li><a href="#">Wszystkie</a></li>
+            </ul>
+         </li>
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               Harmonogram <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+               <li><a href="#">Informacje o harmonogramie </a></li>
+               <li><a href="#">Zmiana harmonogramu </a></li>
+            </ul>
+         </li>
+         <li><a href="#">Raporty i statystyki </a></li>
       </ul>
    </div>
 </nav>
