@@ -22,10 +22,10 @@
                Sektory <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-               <li><a href="#">Bioodpady</a></li>
-               <li><a href="#">Przetwarzalne</a></li>
-               <li><a href="#">Pozostale</a></li>
-               <li><a href="#">Wszystkie</a></li>
+               <li><a th:href="@{/sectors/biowaste}">Bioodpady</a></li>
+               <li><a th:href="@{/sectors/recyclable}">Przetwarzalne</a></li>
+               <li><a th:href="@{/sectors/other}">Pozostale</a></li>
+               <li><a th:href="@{/sectors/all}">Wszystkie</a></li>
             </ul>
          </li>
          <li class="dropdown">
@@ -33,10 +33,10 @@
                Kontenery <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-               <li><a href="#">Bioodpady</a></li>
-               <li><a href="#">Przetwarzalne</a></li>
-               <li><a href="#">Pozostale</a></li>
-               <li><a href="#">Wszystkie</a></li>
+               <li><a th:href="@{/containers/biowaste}">Bioodpady</a></li>
+               <li><a th:href="@{/containers/recyclable}">Przetwarzalne</a></li>
+               <li><a th:href="@{/containers/other}">Pozostale</a></li>
+               <li><a th:href="@{/containers/all}">Wszystkie</a></li>
             </ul>
          </li>
          <li class="dropdown">
@@ -44,11 +44,11 @@
                Harmonogram <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-               <li><a href="#">Informacje o harmonogramie </a></li>
-               <li><a href="#">Zmiana harmonogramu </a></li>
+               <li><a th:href="@{/schedule/schedule}">Informacje o harmonogramie </a></li>
+               <li><a th:href="@{/schedule/edit_schedule}">Zmiana harmonogramu </a></li>
             </ul>
          </li>
-         <li><a href="#">Raporty i statystyki </a></li>
+         <li><a th:href="@{/raport}">Raporty i statystyki </a></li>
       </ul>
    </div>
 </nav>
