@@ -10,6 +10,10 @@
 <body>
 <div layout:fragment="decorator-content">
 Kontener Bioodpady<br/>
+<ul> 
+<li th:each="kontener : ${kontenery}" th:text="${kontener.id + ' ' + kontener.nazwa + ' ' + kontener.pojemnosc + ' ' + kontener.opis}">
+</li>
+</ul>
 </div>
 </body>
 </html>
