@@ -24,9 +24,8 @@ public class ContainersController {
 	
 	@RequestMapping(value = BIOWASTE_CONTAINER, method = RequestMethod.GET)
 	public String biowasteContainersPage(final ModelMap modelMap) {
-		List <ContainersTypes> kontenery = containersService.getAllContainersTypes();
-		System.out.println(kontenery);
-		modelMap.addAttribute("kontenery", kontenery);
+//		List <ContainersTypes> kontenery = containersService.getAllContainersTypes(); nie wiem czemu sie sypie
+//		modelMap.addAttribute("kontenery", kontenery);
 		return BIOWASTE_CONTAINER;
 	}
 	@RequestMapping(value = RECYCLABLE_CONTAINER, method = RequestMethod.GET)

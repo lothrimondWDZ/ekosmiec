@@ -16,7 +16,7 @@ public class ContainersTypesDaoImpl implements ContainersTypesDao{
 	
 	@SuppressWarnings("unchecked")
 	public List<ContainersTypes> getAllContainersTypes() {
-		return this.sessionFactory.getCurrentSession().createQuery("from ContainersTypes").list();
+		return (List<ContainersTypes>) this.sessionFactory.getCurrentSession().createQuery("from ContainersTypes").list();
 	}
 
 }

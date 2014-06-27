@@ -6,10 +6,84 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Bioodpady</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript">
+// <![CDATA[
+$(document).ready(function() {
+	var map = null
+	var markers = [];
+
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(51.759314, 19.455757),
+      zoom: 8
+    };
+    map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+    
+    google.maps.event.addListener(map, 'click', function(event) {
+  	  var lat = event.latLng.lat();
+  	  var lng = event.latLng.lng();
+  	  $('#lat').val(lat);
+  	  $('#lon').val(lng);
+  	  placeMarker(event.latLng);
+    });
+    
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+  function placeMarker(location) {
+	  deleteMarkers();
+	    var marker = new google.maps.Marker({
+	        position: location, 
+	        map: map
+	    });
+	    markers.push(marker);
+  }
+  
+  function setAllMap(map) {
+	  for (var i = 0; i < markers.length; i++) {
+	    markers[i].setMap(map);
+	  }
+	}
+  
+  function clearMarkers() {
+	  setAllMap(null);
+	}
+
+  function deleteMarkers() {
+	  clearMarkers();
+	  markers = [];
+	}
+//  ]]>
+});
+</script>
+
+
 </head>
 <body>
 <div layout:fragment="decorator-content">
 Sektory Bioodpady<br/>
+<form action="#" >
+<TABLE>
+	<TD align="left" valign="top">			
+		<TABLE>
+        	<TR>
+            	<td><label for="sektory">Sektory</label>:</td>
+				<td><label for="tekst">tutaj lista/tabela sektorów</label></td>
+            </TR>
+            <TR>
+            	<td><input type="submit" value="Dodaj" />
+            	<input type="submit" value="Edytuj" />
+				<input type="submit" value="Usuń" /></td>
+            </TR>
+        </TABLE>
+	</TD>
+	<TD>
+	<div id="map-canvas" style="width:500px;height:500px;"/>
+	</TD>
+</TABLE>
+</form>
 </div>
 </body>
 </html>
