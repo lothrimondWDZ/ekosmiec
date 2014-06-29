@@ -21,9 +21,12 @@ import org.springframework.stereotype.Repository;
 
 import pl.ekosmiec.entities.Container;
 import pl.ekosmiec.entities.ContainerType;
+import pl.ekosmiec.entities.FreeDay;
 import pl.ekosmiec.entities.Group;
 import pl.ekosmiec.entities.GroupHistory;
+import pl.ekosmiec.entities.WasteDisposal;
 import pl.ekosmiec.entities.WasteType;
+import pl.ekosmiec.entities.WorkingDayOfTheWeek;
 
 @Repository
 public class DatabaseConnection extends JdbcDaoSupport{
@@ -108,6 +111,31 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		RowMapper<Container> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(Container.class);
 		return getJdbcTemplate().query(sql, new Object[]{groupId}, rm);
+	}
+	
+	public List<WasteDisposal> getSchedule(){
+		String sql = "select * from ekosmiec.harmonogram";
+		RowMapper<WasteDisposal> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(WasteDisposal.class);
+		return getJdbcTemplate().query(sql, rm);
+		
+	}
+	
+	public List<WorkingDayOfTheWeek> getWorkingDaysOfTheWeek(){
+		
+		String sql = "select * from ekosmiec.dni_robocze";
+		RowMapper<WorkingDayOfTheWeek> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(WorkingDayOfTheWeek.class);
+		return getJdbcTemplate().query(sql, rm);
+	}
+	
+	public List<FreeDay> getFreeDays(){
+		
+		String sql = "select * from ekosmiec.dni_wolne";
+		RowMapper<FreeDay> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(FreeDay.class);
+		return getJdbcTemplate().query(sql, rm);
+		
 	}
 	
 }

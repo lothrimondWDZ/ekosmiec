@@ -60,11 +60,16 @@ BEGIN
         data date
         );
  
-    --dostepne roboczogodziny
-    create table ekosmiec.roboczogodziny(
+    --dni pracujace
+    create table ekosmiec.dni_robocze(
         id serial primary key,
-        data date,
-        ilosc real default 8
+        dzien_tygodnia int,
+        ilosc int default 480
+        );
+
+    create table ekosmiec.dni_wolne(
+        id serial primary key,
+        data date
         );
  
     --raport dot. odebranych smieci

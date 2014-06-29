@@ -60,6 +60,9 @@ public class HomeController {
 		System.out.println(databaseConnection.getContnatinerTypes());
 		System.out.println(databaseConnection.getContnatinerType(1));
 		System.out.println(databaseConnection.getContainers(1));
+		System.out.println(databaseConnection.getWorkingDaysOfTheWeek());
+		System.out.println(databaseConnection.getFreeDays());
+		System.out.println(databaseConnection.getSchedule());
 		
 		return "home";
 	}
