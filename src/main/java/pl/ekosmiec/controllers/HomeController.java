@@ -60,6 +60,13 @@ public class HomeController {
 		System.out.println(databaseConnection.getSchedule());
 		*/
 		
+		System.out.println(databaseConnection.getAnnualReport(1));
+		System.out.println(databaseConnection.getAnnualReport());
+		System.out.println(databaseConnection.getMonthlyReport(1,2014));
+		System.out.println(databaseConnection.getMonthlyReport(2014));
+		
+		
+		
 /*		WasteType wt = new WasteType();
 		wt.setNazwa("Harnaś");
 		wt.setPrzelicznik(2);

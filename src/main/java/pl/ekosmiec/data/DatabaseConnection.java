@@ -24,6 +24,7 @@ import pl.ekosmiec.entities.ContainerType;
 import pl.ekosmiec.entities.FreeDay;
 import pl.ekosmiec.entities.Group;
 import pl.ekosmiec.entities.GroupHistory;
+import pl.ekosmiec.entities.Statistics;
 import pl.ekosmiec.entities.WasteDisposal;
 import pl.ekosmiec.entities.WasteType;
 import pl.ekosmiec.entities.WorkingDayOfTheWeek;
@@ -212,6 +213,42 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		
 		return getJdbcTemplate().queryForInt(sql, new Object[]{fd.getData()});
 	
+	}
+	
+	public List<Statistics> getAnnualReport(int wasteTypeId){
+		
+		String sql = "select date_part('year', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and g.ref_rodzaj_odpadow = ? group by okres";
+		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Statistics.class);
+		return getJdbcTemplate().query(sql, new Object[]{wasteTypeId}, rm);
+		
+	}
+	
+	public List<Statistics> getAnnualReport(){
+		
+		String sql = "select date_part('year', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa group by okres";
+		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Statistics.class);
+		return getJdbcTemplate().query(sql, rm);
+		
+	}
+	
+	public List<Statistics> getMonthlyReport(int wasteTypeId, int year){
+		
+		String sql = "select date_part('month', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and g.ref_rodzaj_odpadow = ? and date_part('year', h.data) = ? group by okres";
+		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Statistics.class);
+		return getJdbcTemplate().query(sql, new Object[]{wasteTypeId, year}, rm);
+		
+	}
+	
+	public List<Statistics> getMonthlyReport(int year){
+		
+		String sql = "select date_part('month', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and date_part('year', h.data) = ? group by okres";
+		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Statistics.class);
+		return getJdbcTemplate().query(sql, new Object[]{year}, rm);
+		
 	}
 	
 }
