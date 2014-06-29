@@ -14,10 +14,15 @@ import pl.ekosmiec.beans.PrzewidywanaProdukcja;
 import pl.ekosmiec.beans.RozpatrywanaGrupa;
 import pl.ekosmiec.beans.WspolczynnikiAlgorytmu;
 import pl.ekosmiec.dao.*;
+import pl.ekosmiec.data.DatabaseConnection;
 
 @Configuration
 public class ServiceConfig {
 
+	@Bean
+	public DatabaseConnection databaseConnection(){
+		return new DatabaseConnection();
+	}
 	@Bean
 	public ContainersService ContainersService(){
 		return new ContainersService();
