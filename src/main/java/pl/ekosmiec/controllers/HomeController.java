@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.ekosmiec.algorithms.GeneratorHarmonogramu;
 import pl.ekosmiec.beans.Harmonogram;
 import pl.ekosmiec.data.DatabaseConnection;
+import pl.ekosmiec.entities.WasteType;
 import static pl.ekosmiec.navigation.Navigator.HOME;
 import static pl.ekosmiec.navigation.Navigator.ROOT;
 import static pl.ekosmiec.navigation.Navigator.RAPORT;
@@ -63,6 +64,12 @@ public class HomeController {
 		System.out.println(databaseConnection.getWorkingDaysOfTheWeek());
 		System.out.println(databaseConnection.getFreeDays());
 		System.out.println(databaseConnection.getSchedule());
+		
+/*		WasteType wt = new WasteType();
+		wt.setNazwa("Harnaś");
+		wt.setPrzelicznik(2);
+		wt.setOpis("");
+		System.out.println(databaseConnection.addWasteType(wt));*/
 		
 		return "home";
 	}

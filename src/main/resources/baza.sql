@@ -1,4 +1,4 @@
-﻿DO
+DO
 $body$
 BEGIN
    IF EXISTS (
@@ -15,7 +15,7 @@ BEGIN
      
     --rodzaje odpadow
     create table ekosmiec.rodzaje_odpadow(
-        id int primary key,
+        id serial primary key,
         nazwa text,
         przelicznik real default 1, -- ilosc odpadow w m3 * przelicznik = ilosc odpadow w tonach
         opis text
@@ -113,9 +113,9 @@ BEGIN
             h.ref_grupa = g.id
     );
  
-    insert into ekosmiec.rodzaje_odpadow values (1, 'Surowce', 1, 'Papier, plastik, szkło');
-    insert into ekosmiec.rodzaje_odpadow values (2, 'Mokre-BIO', 1, 'Odpady kuchenne (opócz mięsa)');
-    insert into ekosmiec.rodzaje_odpadow values (3, 'Pozostałe', 1, 'Nie kwalifikujące się do pozostałych kategorii');
+    insert into ekosmiec.rodzaje_odpadow (nazwa, przelicznik, opis) values ('Surowce', 1, 'Papier, plastik, szkło');
+    insert into ekosmiec.rodzaje_odpadow (nazwa, przelicznik, opis) values ('Mokre-BIO', 1, 'Odpady kuchenne (opócz mięsa)');
+    insert into ekosmiec.rodzaje_odpadow (nazwa, przelicznik, opis) values ('Pozostałe', 1, 'Nie kwalifikujące się do pozostałych kategorii');
  
     insert into ekosmiec.rodzaje_kontenerow (nazwa, pojemnosc, opis) values ('60 litrowy', 60, '');
     insert into ekosmiec.rodzaje_kontenerow (nazwa, pojemnosc, opis) values ('80 litrowy', 80, '');

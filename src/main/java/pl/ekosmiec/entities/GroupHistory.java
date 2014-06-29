@@ -4,16 +4,24 @@ import java.util.Date;
 
 public class GroupHistory {
     private Integer id;
-    //ref_grupa int references ekosmiec.grupy(id),
+    private int ref_grupa;
     private Date data;
     private float laczna_pojemnosc;
     private float odebrano;
     private String opis;
+    
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public int getRef_grupa() {
+		return ref_grupa;
+	}
+	public void setRef_grupa(int ref_grupa) {
+		this.ref_grupa = ref_grupa;
 	}
 	public Date getData() {
 		return data;

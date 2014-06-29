@@ -53,6 +53,13 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql,new Object[]{groupId},rm);
 	}
 	
+	public Integer addGroupHistory(GroupHistory gh){
+		String sql = "insert into ekosmiec.historia (ref_grupa, data, laczna_pojemnosc, odebrano, opis) values (?,?,?,?,?) returning id";
+
+		return getJdbcTemplate().queryForInt(sql,new Object[]{gh.getRef_grupa(), gh.getData(), gh.getLaczna_pojemnosc(), gh.getOdebrano(), gh.getOpis()});
+	}
+	
+	
 	public List<WasteType> getWasteTypes(){
 		
 		String sql = "select * from ekosmiec.rodzaje_odpadow";
@@ -62,6 +69,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql,rm);
 	}
 	
+	
 	public WasteType getWasteType(int id){
 		
 		String sql = "select * from ekosmiec.rodzaje_odpadow where id = ?";
@@ -69,6 +77,14 @@ public class DatabaseConnection extends JdbcDaoSupport{
 				.newInstance(WasteType.class);
 		return getJdbcTemplate().queryForObject(sql,new Object[]{id}, rm);
 	}
+	
+	public Integer addWasteType(WasteType wt){
+		
+		String sql = "insert into ekosmiec.rodzaje_odpadow(nazwa, przelicznik, opis) values (?,?,?) returning id";
+		
+		return getJdbcTemplate().queryForInt(sql, new Object[]{wt.getNazwa(), wt.getPrzelicznik(), wt.getOpis()});
+	}
+	
 	
 	public List<Group> getGroups(){
 		String sql = "select * from ekosmiec.grupy";
@@ -82,6 +98,14 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		RowMapper<Group> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(Group.class);
 		return getJdbcTemplate().query(sql,new Object[]{wasteId}, rm);
+	}
+	
+	public Integer addGroup(Group g){
+		
+		String sql = "insert into ekosmiec.grupy (nazwa, ref_rodzaj_odpadow, czas_wywozu, wstepna_czestotliwosc, min_czestotliwosc, autoharmonogram, poczatek_historii, opis) values (?,?,?,?,?,?,?,?) returning id";
+		
+		return getJdbcTemplate().queryForInt(sql, new Object[]{g.getNazwa(), g.getRef_rodzaj_odpadow(), g.getCzas_wywozu(), g.getWstepna_czestotliwosc(), g.getMin_czestotliwosc(), g.isAutoharmonogram(), g.getPoczatek_historii(), g.getOpis()});
+		
 	}
 	
 	public List<ContainerType> getContnatinerTypes(){
@@ -105,6 +129,13 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		
 	}
 	
+	public Integer addContainerType(ContainerType ct){
+		
+		String sql = "insert into ekosmiec.rodzaje_kontenerow (nazwa, pojemnosc, opis) values (?,?,?) returning id";
+		return getJdbcTemplate().queryForInt(sql, new Object[]{ct.getNazwa(), ct.getPojemnosc(), ct.getOpis()});
+		
+	}
+	
 	public List<Container> getContainers(int groupId){
 		
 		String sql = "select id, ref_grupa, ref_rodzaj_kontenera, ST_X(lokalizacja) lokalizacja_x, ST_Y(lokalizacja) lokalizacja_y from ekosmiec.kontenery where ref_grupa = ?"; 
@@ -113,11 +144,24 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql, new Object[]{groupId}, rm);
 	}
 	
+	public Integer addContainer(Container c){
+		
+		String sql = "insert into ekosmiec.kontenery(ref_grupa, ref_rodzaj_kontenera, lokalizacja, opis) values (?,?,?,ST_GeomFromText('Point(? ?)'),?) returning id";
+		
+		return getJdbcTemplate().queryForInt(sql, new Object[]{c.getRef_grupa(), c.getRef_rodzaj_kontenera(), c.getLokalizacjaX(), c.getLokalizacjaY(), c.getOpis()});
+	}
+	
 	public List<WasteDisposal> getSchedule(){
 		String sql = "select * from ekosmiec.harmonogram";
 		RowMapper<WasteDisposal> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(WasteDisposal.class);
 		return getJdbcTemplate().query(sql, rm);
+	}
+	
+	public Integer addToSchedule(WasteDisposal wd){
+		
+		String sql = "insert into ekosmiec.harmonogram (ref_grupa, data) values (?,?) returning id";
+		return getJdbcTemplate().queryForInt(sql, new Object[]{wd.getRef_grupa(), wd.getData()});
 		
 	}
 	
@@ -129,6 +173,15 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql, rm);
 	}
 	
+	public Integer updateWorkingDayOfTheWeek(WorkingDayOfTheWeek wdotf){
+		
+		getJdbcTemplate().update("delete from ekosmiec.dni_robocze where dzien_tygodnia =?",new Object[]{wdotf.getDzien_tygodnia()});
+		
+		String sql = "insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc) values (?,?) returning id";
+		return getJdbcTemplate().queryForInt(sql, new Object[]{wdotf.getDzien_tygodnia(), wdotf.getIlosc()});
+		
+	}
+	
 	public List<FreeDay> getFreeDays(){
 		
 		String sql = "select * from ekosmiec.dni_wolne";
@@ -136,6 +189,14 @@ public class DatabaseConnection extends JdbcDaoSupport{
 				.newInstance(FreeDay.class);
 		return getJdbcTemplate().query(sql, rm);
 		
+	}
+	
+	public Integer addFreeDay(FreeDay fd){
+		
+		String sql = "insert into ekosmiec.dni_wolne (data) values (?) returning id";
+		
+		return getJdbcTemplate().queryForInt(sql, new Object[]{fd.getData()});
+	
 	}
 	
 }
