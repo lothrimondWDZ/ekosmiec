@@ -5,7 +5,7 @@
 	layout:decorator="main_template">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Pozostale</title>
+<title>Bioodpady</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script type="text/javascript">
 // <![CDATA[
@@ -63,28 +63,64 @@ $(document).ready(function() {
 </head>
 <body>
 <div layout:fragment="decorator-content">
-Kontener Pozostale<br/>
+<label>Edycja sektora</label>
 <form action="#" >
 <TABLE>
 	<TD align="left" valign="top">			
 		<TABLE>
         	<TR>
-            	<td><label for="sektory">Wybierz sektor</label>:</td>
+            	<td>Rodzaj odpadów :</td>
            		<td><select id="sektory" name="sektory">
-   					<option value="Sektor1">Sektor 1</option>
-  					<option value="Sektor2">Sektor 2</option>
-   					<option value="Sektor3">Sektor 3</option>
+   					<option value="Sektor1">Bioodpady</option>
+  					<option value="Sektor2">Przetwarzalne</option>
+   					<option value="Sektor3">Pozostałe</option>
 					</select></td>
             </TR>
             <TR>
-            	<td><label for="kontenery">Kontenery</label>:</td>
-				<td><label for="tekst">tutaj lista/tabela kontenerow</label></td>
+            	<td>Częstotliwość wywozu :</td>
+           		<td><select id="sektory" name="sektory">
+   					<option value="Sektor1">Raz na tydzień</option>
+  					<option value="Sektor2">Dwa razy w tygodniu</option>
+   					<option value="Sektor3">Trzy razy w tygodniu</option>
+					</select></td>
             </TR>
             <TR>
-            	<td><label for="zmien">Dodaj/Zmień kontener</label>:</td>
+            <td><label for="odstep"> </label></td>
             </TR>
             <TR>
-            	<td><label for="pojemnosc">Pojemność</label>:</td>
+            <td>Kontenery :</td>
+            </TR>
+            <TR>
+				<th>Pojemność</th>	
+				<th>Długość geograficzna</th>
+				<th>Szerokość geograficzna</th>
+			</TR>
+			<TR>
+				<td>60 litorwy</td>	
+				<td>50.1234</td>	
+				<td>51.6734</td>		
+				<td><a>[X]  </a></td>
+			</TR>
+			<TR>
+				<td>60 litorwy</td>	
+				<td>50.1234</td>	
+				<td>51.6734</td>	
+				<td><a>[X]  </a></td>		
+			</TR>
+			<TR>
+				<td>60 litorwy</td>	
+				<td>50.1234</td>	
+				<td>51.6734</td>	
+				<td><a>[X]  </a></td>	
+			</TR>
+			<TR>
+            <td><label for="odstep"> </label></td>
+            </TR>
+            <TR>
+            	<td><label for="zmien">Dodaj kontener</label>:</td>
+            </TR>
+            <TR>
+            	<td>Pojemność :</td>
             	<td><select id="pojemnosc" name="pojemnosc">
    					<option value="60">60 litrowy</option>
   					<option value="80">80 litrowy</option>
@@ -92,21 +128,19 @@ Kontener Pozostale<br/>
 					</select></td>
             </TR>
             <TR>
-            	<td><label for="lat">Długość geograficzna</label>:</td>
+            	<td>Długość geograficzna :</td>
             	<td><input type="text" id="lat"  /> <br /></td>
             </TR>
             <TR>
-            	<td><label for="lon">Szerokość geograficzna</label>:</td>
+            	<td>Szerokość geograficzna :</td>
             	<td><input type="text" id="lon" /> <br /></td>
             </TR>
             <TR>
-            	<td><input type="submit" value="Dodaj" />
-            	<input type="submit" value="Edytuj" />
-				<input type="submit" value="Usuń" /></td>
+            	<td><input type="submit" value="Dodaj" /></td>
             </TR>
         </TABLE>
 	</TD>
-	<TD>
+	<TD align="center">
 	<div id="map-canvas" style="width:500px;height:500px;"/>
 	</TD>
 </TABLE>
