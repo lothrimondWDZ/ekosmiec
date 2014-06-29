@@ -18,26 +18,8 @@
    </div>
    <div>
       <ul class="nav navbar-nav">
-      	 <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               Sektory <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-               <li><a th:href="@{/sectors/biowaste}">Bioodpady</a></li>
-               <li><a th:href="@{/sectors/recyclable}">Przetwarzalne</a></li>
-               <li><a th:href="@{/sectors/other}">Pozostale</a></li>
-               <li><a th:href="@{/sectors/all}">Wszystkie</a></li>
-            </ul>
-         </li>
-         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               Harmonogram <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-               <li><a th:href="@{/schedule/schedule}">Informacje o harmonogramie </a></li>
-               <li><a th:href="@{/schedule/edit_schedule}">Zmiana harmonogramu </a></li>
-            </ul>
-         </li>
+         <li><a th:href="@{/sectors/all}" >Sektory</a></li>
+         <li><a th:href="@{/schedule/schedule}" >Harmonogram</a></li>
          <li><a th:href="@{/raport}">Raporty i statystyki </a></li>
       </ul>
    </div>
