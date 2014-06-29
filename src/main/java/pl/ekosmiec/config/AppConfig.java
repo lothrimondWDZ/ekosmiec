@@ -17,7 +17,7 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan("pl.medcore")  
+@ComponentScan("pl.ekosmiec")  
 @Import({ThymeleafConfig.class, ApplicationInitializer.class, ServiceConfig.class, WebAppConfig.class})
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")

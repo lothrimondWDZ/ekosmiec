@@ -24,12 +24,12 @@ public class ServiceConfig {
 		return new DatabaseConnection();
 	}
 	@Bean
-	public ContainersService ContainersService(){
-		return new ContainersService();
+	public ContainersTypesDao containersTypesDao(){
+		return new ContainersTypesDaoImpl();
 	}
 	@Bean
-	public ContainersTypesDao ContainersTypesDao(){
-		return new ContainersTypesDaoImpl();
+	public ContainersService containersService(){
+		return new ContainersService();
 	}
 	@Bean
 	public DAOGeneratora daoGeneratora(){

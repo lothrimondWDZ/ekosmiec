@@ -22,6 +22,7 @@ public class ThymeleafConfig {
 		resolver.setSuffix(".html");
 		resolver.setTemplateMode("HTML5");
 		resolver.setOrder(1);
+		resolver.setCharacterEncoding(UTF_8);
 		return resolver;
 	}
 	
@@ -38,6 +39,7 @@ public class ThymeleafConfig {
         final ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setTemplateEngine(templateEngine);
         thymeleafViewResolver.setCharacterEncoding(UTF_8);
+        thymeleafViewResolver.setContentType("text/html; charset=UTF-8");
         return thymeleafViewResolver;
     }
 
