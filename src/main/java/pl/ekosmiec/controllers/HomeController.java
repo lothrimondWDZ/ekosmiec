@@ -26,7 +26,6 @@ public class HomeController {
 	
 	@RequestMapping(value = HOME, method = RequestMethod.GET)
 	public String homePage(final ModelMap modelMap) {
-		databaseConnection.getRodzajeKontenerow();
 		return HOME;
 	}
 	@RequestMapping(value = RAPORT, method = RequestMethod.GET)
@@ -46,10 +45,21 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 
 		
-		Date poczatek = new Date(2014 - 1900, 1-1, 1);
+/*		Date poczatek = new Date(2014 - 1900, 1-1, 1);
 		Date koniec = new Date(2015 - 1900, 12-1, 30);
 		GeneratorHarmonogramu gh = new GeneratorHarmonogramu(GeneratorHarmonogramu.Tryb.NOWY);
 		Harmonogram harmonogram = gh.nowyHarmonogram(poczatek, koniec, null);
+		*/
+		
+		System.out.println(databaseConnection.test());
+		System.out.println(databaseConnection.getGroupHistory(1));
+		System.out.println(databaseConnection.getGroups());
+		System.out.println(databaseConnection.getGroups(1));
+		System.out.println(databaseConnection.getWasteType(1));
+		System.out.println(databaseConnection.getWasteTypes());
+		System.out.println(databaseConnection.getContnatinerTypes());
+		System.out.println(databaseConnection.getContnatinerType(1));
+		System.out.println(databaseConnection.getContainers(1));
 		
 		return "home";
 	}

@@ -7,62 +7,107 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class DatabaseConnection {
+import javax.sql.DataSource;
 
-	public static Connection getDatabaseConnection() {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Where is your PostgreSQL JDBC Driver? "
-					+ "Include in your library path!");
-			e.printStackTrace();
-			return null;
-		}
-		System.out.println("PostgreSQL JDBC Driver Registered!");
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/ekosmiec", "ekosmiec",
-					"jestemFilatelista");
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return null;
-		}
-		return connection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import pl.ekosmiec.entities.Container;
+import pl.ekosmiec.entities.ContainerType;
+import pl.ekosmiec.entities.Group;
+import pl.ekosmiec.entities.GroupHistory;
+import pl.ekosmiec.entities.WasteType;
+
+@Repository
+public class DatabaseConnection extends JdbcDaoSupport{
+	
+	
+    @Autowired
+	public
+    DatabaseConnection(DataSource dataSource){
+        setDataSource(dataSource);
+    }
+
+
+	
+	public Integer test(){
+		
+		return getJdbcTemplate().queryForInt("select count(*) from ekosmiec.rodzaje_kontenerow");
 	}
 	
-	public void getRodzajeKontenerow(){
-		Connection conn = getDatabaseConnection();
-		Statement stmt = null;
-		try {
-			stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT id, nazwa, pojemnosc, opis FROM ekosmiec.rodzaje_kontenerow");
-			while (rs.next()) {
-				Integer id = rs.getInt("id");
-				String name = rs.getString("nazwa");
-				Integer volume = rs.getInt("pojemnosc");
-				String desc = rs.getString("opis");
-				System.out.println("Rodzaj kontenera: id:" + id + " nazwa:" + name + " pojemnosc:" + volume + " opis:" + desc);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+	public List<GroupHistory> getGroupHistory(int groupId){
+		String sql = "select * from ekosmiec.historia where ref_grupa = ?";
+		RowMapper<GroupHistory> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(GroupHistory.class);
+		
+		return getJdbcTemplate().query(sql,new Object[]{groupId},rm);
 	}
+	
+	public List<WasteType> getWasteTypes(){
+		
+		String sql = "select * from ekosmiec.rodzaje_odpadow";
+		RowMapper<WasteType> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(WasteType.class);
+		
+		return getJdbcTemplate().query(sql,rm);
+	}
+	
+	public WasteType getWasteType(int id){
+		
+		String sql = "select * from ekosmiec.rodzaje_odpadow where id = ?";
+		RowMapper<WasteType> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(WasteType.class);
+		return getJdbcTemplate().queryForObject(sql,new Object[]{id}, rm);
+	}
+	
+	public List<Group> getGroups(){
+		String sql = "select * from ekosmiec.grupy";
+		RowMapper<Group> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Group.class);
+		return getJdbcTemplate().query(sql, rm);
+	}
+
+	public List<Group> getGroups(int wasteId){
+		String sql = "select * from ekosmiec.grupy where ref_rodzaj_odpadow = ?";
+		RowMapper<Group> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Group.class);
+		return getJdbcTemplate().query(sql,new Object[]{wasteId}, rm);
+	}
+	
+	public List<ContainerType> getContnatinerTypes(){
+		
+		String sql = "select * from ekosmiec.rodzaje_kontenerow";
+		RowMapper<ContainerType> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(ContainerType.class);
+		return getJdbcTemplate().query(sql, rm);
+		
+		
+	}
+	
+	
+	public List<ContainerType> getContnatinerType(int id){
+		
+		String sql = "select * from ekosmiec.rodzaje_kontenerow where id = ?";
+		RowMapper<ContainerType> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(ContainerType.class);
+		return getJdbcTemplate().query(sql, new Object[]{id}, rm);
+		
+		
+	}
+	
+	public List<Container> getContainers(int groupId){
+		
+		String sql = "select id, ref_grupa, ref_rodzaj_kontenera, ST_X(lokalizacja) lokalizacja_x, ST_Y(lokalizacja) lokalizacja_y from ekosmiec.kontenery where ref_grupa = ?"; 
+		RowMapper<Container> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Container.class);
+		return getJdbcTemplate().query(sql, new Object[]{groupId}, rm);
+	}
+	
 }

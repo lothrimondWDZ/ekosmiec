@@ -1,5 +1,7 @@
 package pl.ekosmiec.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,8 +22,8 @@ import pl.ekosmiec.data.DatabaseConnection;
 public class ServiceConfig {
 
 	@Bean
-	public DatabaseConnection databaseConnection(){
-		return new DatabaseConnection();
+	public DatabaseConnection databaseConnection(DataSource dataSource){
+		return new DatabaseConnection(dataSource);
 	}
 	@Bean
 	public ContainersTypesDao containersTypesDao(){
