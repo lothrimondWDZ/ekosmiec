@@ -108,6 +108,15 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		
 	}
 	
+	public void deleteGroup(int id){
+		
+		Object[] args = new Object[]{id};
+		
+		getJdbcTemplate().update("delete from ekosmiec.kontenery where ref_grupa = ?", args);
+		getJdbcTemplate().update("delete from ekosmiec.harmonogram where ref_grupa = ?", args);
+		getJdbcTemplate().update("delete from ekosmiec.grupy where id = ?", args);
+	}
+	
 	public List<ContainerType> getContnatinerTypes(){
 		
 		String sql = "select * from ekosmiec.rodzaje_kontenerow";
@@ -156,6 +165,12 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		RowMapper<WasteDisposal> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(WasteDisposal.class);
 		return getJdbcTemplate().query(sql, rm);
+	}
+	
+	public void deleteSchedlue(int groupId){
+		
+		getJdbcTemplate().update("delete from ekosmiec.harmonogram");
+		
 	}
 	
 	public Integer addToSchedule(WasteDisposal wd){

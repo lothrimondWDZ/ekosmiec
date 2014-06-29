@@ -36,14 +36,7 @@ public class HomeController {
 	
 	@RequestMapping(value = ROOT, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		//logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+
 
 		
 /*		Date poczatek = new Date(2014 - 1900, 1-1, 1);
@@ -52,6 +45,7 @@ public class HomeController {
 		Harmonogram harmonogram = gh.nowyHarmonogram(poczatek, koniec, null);
 		*/
 		
+/*		
 		System.out.println(databaseConnection.test());
 		System.out.println(databaseConnection.getGroupHistory(1));
 		System.out.println(databaseConnection.getGroups());
@@ -64,6 +58,7 @@ public class HomeController {
 		System.out.println(databaseConnection.getWorkingDaysOfTheWeek());
 		System.out.println(databaseConnection.getFreeDays());
 		System.out.println(databaseConnection.getSchedule());
+		*/
 		
 /*		WasteType wt = new WasteType();
 		wt.setNazwa("Harnaś");
