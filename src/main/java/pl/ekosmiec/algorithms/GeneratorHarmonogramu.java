@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.springframework.stereotype.Controller;
 
 import pl.ekosmiec.beans.DostepnyCzas;
 import pl.ekosmiec.beans.Grupa;
@@ -21,17 +22,19 @@ import pl.ekosmiec.beans.PlanowanyOdbiorSmieci;
 import pl.ekosmiec.beans.PrzewidywanaProdukcja;
 import pl.ekosmiec.beans.RozpatrywanaGrupa;
 import pl.ekosmiec.beans.WspolczynnikiAlgorytmu;
-import pl.ekosmiec.dao.DAOGeneratora;
-import pl.ekosmiec.dao.DAOGeneratoraImpl;
+import pl.ekosmiec.services.GeneratorService;
 
 
 public class GeneratorHarmonogramu {
 
+	
+	private GeneratorService generatorService;
+	
 	public class Tryb {
 		
 		public final static int NOWY = 0; //ekstrapolacja od ostatniej daty w historii
 		public final static int DOPISZ = 1; //dopisuje daty do harmonogramu ktorych brakuje
-		public final static int NADPISZ = 2; //harmonogram w wybranym zakresie jest ukladany od nowa
+		//public final static int NADPISZ = 2; //harmonogram w wybranym zakresie jest ukladany od nowa
 		
 	}
 	
@@ -43,11 +46,13 @@ public class GeneratorHarmonogramu {
 	private List<Grupa> grupy;
 	
 	
-	private DAOGeneratora daoGeneratora;
+	//private DAOGeneratora daoGeneratora;
 	private int tryb;
+	private Harmonogram staryHarmonogram;
 	
-	public GeneratorHarmonogramu(int tryb){
-		daoGeneratora = new DAOGeneratoraImpl();
+	public GeneratorHarmonogramu(GeneratorService generatorService, int tryb){
+		this.generatorService = generatorService;
+		//daoGeneratora = new DAOGeneratoraImpl();
 		this.tryb = tryb;
 	}
 	
@@ -55,10 +60,11 @@ public class GeneratorHarmonogramu {
 		
 		this.poczatek = poczatek;
 		this.koniec = koniec;
+		this.staryHarmonogram = staryHarmonogram;
 		
-		this.grupy = daoGeneratora.pobierzGrupyZHistoria();
+		this.grupy = generatorService.pobierzGrupyZHistoria();
 		przewidywanieProdukcji();
-		DostepnyCzas dostepnyCzas = daoGeneratora.pobierzDostepnyCzas(new LocalDate(poczatek), new LocalDate(koniec));
+		DostepnyCzas dostepnyCzas = generatorService.pobierzDostepnyCzas(new LocalDate(poczatek), new LocalDate(koniec));
 		//TODO Pobieranie Harmonogramu akutalnego, wczesniej spr. trybu
 		Harmonogram harmonogram = ulozHarmonogram(dostepnyCzas);
 		
@@ -325,7 +331,7 @@ public class GeneratorHarmonogramu {
 		
 		LocalDate rozpatrywanaData = new LocalDate(poczatek);
 		LocalDate koncowaData = new LocalDate(koniec);
-		WspolczynnikiAlgorytmu wspolczynnikiAlgorytmu = daoGeneratora.pobierzWspolczynniki();
+		WspolczynnikiAlgorytmu wspolczynnikiAlgorytmu = generatorService.pobierzWspolczynniki();
 		
 		//ukladanie automatycznego harmonogramu
 		while (rozpatrywanaData.isBefore(koncowaData)){
@@ -402,14 +408,20 @@ public class GeneratorHarmonogramu {
 	private Date dataOstaniegoWywozu(Grupa grupa){
 		
 		List<OdbiorSmieci> odbiory = grupa.getHistoria().getOdbiory();
-		Date ostatniWywoz = null;
+		Date ostatniWywoz = grupa.getHistoria().getPoczatek();
 		
 		if (tryb == Tryb.DOPISZ){
 			//TODO ustawic dlate dla dopisywania do harmonogramu
+			for (PlanowanyOdbiorSmieci pos : staryHarmonogram.getPlan()){
+				if (pos.getIdGrupy() == grupa.getId() && (ostatniWywoz.before(pos.getData().toDate())))
+					ostatniWywoz = pos.getData().toDate();
+			}
+			
+			
 		}
-		else if (tryb == Tryb.NADPISZ){
+		//else if (tryb == Tryb.NADPISZ){
 			//TODO ustawic data dla nadpisywania harmongramu
-		}
+		//}
 		else //if (tryb == Tryb.NOWY)
 		{
 			//ostatnia znana data z historii o ile takowa wystapila

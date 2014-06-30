@@ -161,6 +161,14 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().queryForInt(sql, new Object[]{c.getRef_grupa(), c.getRef_rodzaj_kontenera(), c.getLokalizacjaX(), c.getLokalizacjaY(), c.getOpis()});
 	}
 	
+	public Integer getTotalCapacity(int groupId){
+		
+		String sql = "select count(r.pojemnosc) from ekosmiec.kontenery k, ekosmiec.rodzaje_kontenerow r where r.id = k.ref_rodzaj_kontenera and k.ref_grupa = ?";
+		
+		return getJdbcTemplate().queryForInt(sql, new Object[]{groupId});
+		
+	}
+	
 	public List<WasteDisposal> getSchedule(){
 		String sql = "select * from ekosmiec.harmonogram";
 		RowMapper<WasteDisposal> rm = ParameterizedBeanPropertyRowMapper
@@ -250,5 +258,16 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql, new Object[]{year}, rm);
 		
 	}
+	
+	public String getVariable(String name){
+		
+		return getJdbcTemplate().queryForObject("select wartosc from ekosmiec.zmienne where nazwa = ?", new Object[]{name}, String.class);
+	}
+	
+	public void setVariable(String name, String value){
+		
+		getJdbcTemplate().update("update ekosmiec.zmienne set wartosc = ? where nazwa = ?", new Object[]{value, name});
+	}
+
 	
 }

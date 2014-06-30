@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import pl.ekosmiec.algorithms.GeneratorHarmonogramu;
 import pl.ekosmiec.beans.Harmonogram;
 import pl.ekosmiec.data.DatabaseConnection;
 import pl.ekosmiec.entities.WasteType;
+import pl.ekosmiec.services.GeneratorService;
 import static pl.ekosmiec.navigation.Navigator.HOME;
 import static pl.ekosmiec.navigation.Navigator.ROOT;
 import static pl.ekosmiec.navigation.Navigator.RAPORT;
@@ -24,6 +26,9 @@ public class HomeController {
 	
 	@Autowired
 	private DatabaseConnection databaseConnection;
+	
+	@Autowired
+	private GeneratorService generatorService;
 	
 	@RequestMapping(value = HOME, method = RequestMethod.GET)
 	public String homePage(final ModelMap modelMap) {
@@ -36,14 +41,25 @@ public class HomeController {
 	
 	@RequestMapping(value = ROOT, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-
-
 		
-/*		Date poczatek = new Date(2014 - 1900, 1-1, 1);
+		Date poczatek = new Date(2014- 1900, 1-1, 1);
 		Date koniec = new Date(2015 - 1900, 12-1, 30);
-		GeneratorHarmonogramu gh = new GeneratorHarmonogramu(GeneratorHarmonogramu.Tryb.NOWY);
-		Harmonogram harmonogram = gh.nowyHarmonogram(poczatek, koniec, null);
-		*/
+		GeneratorHarmonogramu gh = new GeneratorHarmonogramu(generatorService, GeneratorHarmonogramu.Tryb.NOWY);
+		Harmonogram harmonogram1 = gh.nowyHarmonogram( poczatek, koniec, null);
+		
+	/*	poczatek = new Date(2015 - 1900, 1-1, 1);
+		koniec = new Date(2016 - 1900, 12-1, 30);
+		gh = new GeneratorHarmonogramu(generatorService, GeneratorHarmonogramu.Tryb.NOWY);
+		Harmonogram harmonogram2 = gh.nowyHarmonogram( poczatek, koniec, null);
+		
+		poczatek = new Date(2015 - 1900, 1-1, 1);
+		koniec = new Date(2016 - 1900, 12-1, 30);
+		gh = new GeneratorHarmonogramu(generatorService, GeneratorHarmonogramu.Tryb.DOPISZ);
+		Harmonogram harmonogram3 = gh.nowyHarmonogram( poczatek, koniec, harmonogram1);*/
+		
+
+/*		generatorService.ustawKoniecHarmonogramu(new LocalDate(new Date()));
+		System.out.println(generatorService.pobierzKoniecHarmonogramu());*/
 		
 /*		
 		System.out.println(databaseConnection.test());

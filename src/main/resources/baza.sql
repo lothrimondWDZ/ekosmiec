@@ -13,6 +13,11 @@ BEGIN
     create user ekosmiec with password 'jestemFilatelista';
     create schema authorization ekosmiec;
      
+    create table ekosmiec.zmienne(
+    	nazwa text,
+    	wartosc text
+    );
+    
     --rodzaje odpadow
     create table ekosmiec.rodzaje_odpadow(
         id serial primary key,
@@ -127,6 +132,18 @@ BEGIN
     insert into ekosmiec.rodzaje_kontenerow (nazwa, pojemnosc, opis) values ('660 litrowy', 660, '');
     insert into ekosmiec.rodzaje_kontenerow (nazwa, pojemnosc, opis) values ('770 litrowy', 770, '');
     insert into ekosmiec.rodzaje_kontenerow (nazwa, pojemnosc, opis) values ('1100 litrowy', 1100, '');
+    
+    insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc) values (1, 480);
+    insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc)  values (2, 480);
+    insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc)  values (3, 480);
+    insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc)  values (4, 480);
+    insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc)  values (5, 480);
+    insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc)  values (6, 0);
+    insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc)  values (7, 0);
+    
+    insert into ekosmiec.zmienne values ('MINIMUM', '30');
+    insert into ekosmiec.zmienne values ('ZALECANE', '80');
+    insert into ekosmiec.zmienne values ('KONIEC_HARMONOGRAMU', '');
      
     grant all privileges on all tables in schema ekosmiec to ekosmiec;
     GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA ekosmiec TO ekosmiec;

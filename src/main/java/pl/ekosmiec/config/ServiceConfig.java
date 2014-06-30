@@ -33,10 +33,6 @@ public class ServiceConfig {
 	public ContainersService containersService(){
 		return new ContainersService();
 	}
-	@Bean
-	public DAOGeneratora daoGeneratora(){
-		return new DAOGeneratoraImpl();
-	}
 	//pozostałe beany:
 	@Bean
 	public DostepnyCzas dostepnyCzas(){
