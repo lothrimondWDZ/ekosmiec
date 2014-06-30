@@ -6,6 +6,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Informacje o harmonogramie</title>
+<script type="text/javascript">
+// <![CDATA[
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+    })
+
+});
+//]]>
+</script>
 </head>
 <body>
 <div layout:fragment="decorator-content">
@@ -35,6 +48,7 @@ Informacje o harmonogramie<br/>
             </TR>
         </TABLE>
 </form>
+<div id='calendar'></div>
 </div>
 </body>
 </html>
