@@ -83,6 +83,8 @@ $(document).ready(function() {
 </head>
 <body>
 <div layout:fragment="decorator-content">
+<div class="row">
+<div class="col-md-6">
 <label>Edycja sektora</label>
 <form action="#" >
 <table>
@@ -153,12 +155,14 @@ $(document).ready(function() {
             </tr>
         </table>
 	</td>
-	<td align="center">
-	<div id="map-canvas" style="width:500px;height:500px;"/>
-	</td>
-	</tr>
+</tr>
 </table>
 </form>
+</div>
+	<div class="col-md-6">
+	<div id="map-canvas" style="width:500px;height:500px;"/>
+	</div>
+</div>
 </div>
 </body>
 </html>

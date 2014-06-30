@@ -17,7 +17,7 @@
 <p th:if="${rok != null}"><a th:href="@{/raport(rok=${rok})}">Wszystkie</a> | <a th:href="@{/raport(rodzaj_odpadow=1, rok=${rok})}">Surowce</a> | <a th:href="@{/raport(rodzaj_odpadow=2, rok=${rok})}">Mokre BIO</a> | <a th:href="@{/raport(rodzaj_odpadow=3,rok=${rok})}">Pozostałe</a>
 </p>
 
-<table>
+<table class="table table-hover">
 	<tr>
 		<td> Okres </td>
 		<td> Ilość odpadów</td>
