@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.ekosmiec.algorithms.GeneratorHarmonogramu;
 import pl.ekosmiec.data.DatabaseConnection;
@@ -34,13 +35,27 @@ public class HomeController {
 		return HOME;
 	}
 	@RequestMapping(value = RAPORT, method = RequestMethod.GET)
-	public String raportPage(final ModelMap modelMap) {
-		modelMap.addAttribute("annualReports", databaseConnection.getAnnualReport());
+	public String raportPage(@RequestParam(required = false) Integer rok, @RequestParam(required = false) Integer rodzaj_odpadow,final ModelMap modelMap) {
+		
+		modelMap.addAttribute("wasteTypes", databaseConnection.getWasteTypes());
+		
+		if (rok!= null && rodzaj_odpadow ==null)
+			modelMap.addAttribute("reports", databaseConnection.getMonthlyReport(rok));
+		else if (rok== null && rodzaj_odpadow != null)
+			modelMap.addAttribute("reports", databaseConnection.getAnnualReport(rodzaj_odpadow));
+		else if (rok!= null && rodzaj_odpadow !=null)
+			modelMap.addAttribute("reports", databaseConnection.getMonthlyReport(rodzaj_odpadow, rok));
+		else
+			modelMap.addAttribute("reports", databaseConnection.getAnnualReport());
+		
+		modelMap.addAttribute("rok", rok);
+		modelMap.addAttribute("rodzaj_odpadow", rodzaj_odpadow);
+		
 		return RAPORT;
 	}
 	
 	@RequestMapping(value = "/generowanieDanych", method = RequestMethod.GET)
-	public String generowanieDanych(final ModelMap modelMap) {
+	public String generowanieDanych( final ModelMap modelMap) {
 		
 		databaseConnection.deleteAllGroups();
 		generatorService.generowanieTymczasowychDanych();
