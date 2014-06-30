@@ -1,19 +1,10 @@
 package pl.ekosmiec.data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -92,6 +83,13 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		RowMapper<Group> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(Group.class);
 		return getJdbcTemplate().query(sql, rm);
+	}
+	
+	public Group getGroupById(int groupId){
+		String sql = "select * from ekosmiec.grupy where id = ?";
+		RowMapper<Group> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(Group.class);
+		return getJdbcTemplate().queryForObject(sql,new Object[]{groupId}, rm);
 	}
 
 	public List<Group> getGroups(int wasteId){

@@ -96,23 +96,10 @@ $(document).ready(function() {
 				<th>Długość geograficzna</th>
 				<th>Szerokość geograficzna</th>
 			</tr>
-			<tr>
-				<td>60 litorwy</td>	
-				<td>50.1234</td>	
-				<td>51.6734</td>		
-				<td><a>[X]  </a></td>
-			</tr>
-			<tr>
-				<td>60 litorwy</td>	
-				<td>50.1234</td>	
-				<td>51.6734</td>	
-				<td><a>[X]  </a></td>		
-			</tr>
-			<tr>
-				<td>60 litorwy</td>	
-				<td>50.1234</td>	
-				<td>51.6734</td>	
-				<td><a>[X]  </a></td>	
+			<tr th:each="container : ${containers}">
+				<td><span th:text="${container.opis}"></span></td>
+				<td><span th:text="${container.lokalizacjaX}"></span></td>
+				<td><span th:text="${container.lokalizacjaY}"></span></td>
 			</tr>
 			<tr>
             <td><label for="odstep"> </label></td>
