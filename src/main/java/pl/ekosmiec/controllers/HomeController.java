@@ -39,12 +39,23 @@ public class HomeController {
 		return RAPORT;
 	}
 	
+	@RequestMapping(value = "/generowanieDanych", method = RequestMethod.GET)
+	public String generowanieDanych(final ModelMap modelMap) {
+		
+		databaseConnection.deleteAllGroups();
+		generatorService.generowanieTymczasowychDanych();
+		
+		return "redirect:" + ROOT;
+	}
+	
 	@RequestMapping(value = ROOT, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		System.out.println(databaseConnection.getAnnualReport(1));
 		System.out.println(databaseConnection.getAnnualReport());
 		System.out.println(databaseConnection.getMonthlyReport(1,2014));
 		System.out.println(databaseConnection.getMonthlyReport(2014));
+
+		
 		return "home";
 	}
 }

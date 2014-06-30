@@ -1,6 +1,8 @@
 package pl.ekosmiec.entities;
 
-import java.sql.Date;
+import java.util.Date;
+
+
 
 public class WasteDisposal {
 	
@@ -23,8 +25,8 @@ public class WasteDisposal {
 	public Date getData() {
 		return data;
 	}
-	public void setData(Date data) {
-		this.data = data;
+	public void setData(Date date) {
+		this.data = date;
 	}
 	
 	

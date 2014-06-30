@@ -1,6 +1,8 @@
 package pl.ekosmiec.entities;
 
-import java.sql.Date;
+import java.util.Date;
+
+
 
 public class Group {
     private int id;
@@ -57,8 +59,8 @@ public class Group {
 	public Date getPoczatek_historii() {
 		return poczatek_historii;
 	}
-	public void setPoczatek_historii(Date poczatek_historii) {
-		this.poczatek_historii = poczatek_historii;
+	public void setPoczatek_historii(Date date) {
+		this.poczatek_historii = date;
 	}
 	public String getOpis() {
 		return opis;

@@ -115,7 +115,16 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		
 		getJdbcTemplate().update("delete from ekosmiec.kontenery where ref_grupa = ?", args);
 		getJdbcTemplate().update("delete from ekosmiec.harmonogram where ref_grupa = ?", args);
+		getJdbcTemplate().update("delete from ekosmiec.historia where ref_grupa = ?", args);
 		getJdbcTemplate().update("delete from ekosmiec.grupy where id = ?", args);
+	}
+	
+	public void deleteAllGroups(){
+		
+		getJdbcTemplate().update("delete from ekosmiec.kontenery");
+		getJdbcTemplate().update("delete from ekosmiec.harmonogram");
+		getJdbcTemplate().update("delete from ekosmiec.historia");
+		getJdbcTemplate().update("delete from ekosmiec.grupy");
 	}
 	
 	public List<ContainerType> getContainerTypes(){
@@ -155,17 +164,21 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	}
 	
 	public Integer addContainer(Container c){
+		String sql = "insert into ekosmiec.kontenery(ref_grupa, ref_rodzaj_kontenera, lokalizacja, opis) values ('";
+		sql += c.getRef_grupa() + "','";
+		sql += c.getRef_rodzaj_kontenera() + "',";
+		sql += "ST_GeomFromText('Point(" +  Double.toString(c.getLokalizacjaX()) + " " + Double.toString(c.getLokalizacjaY()) + ")'),'";
+		sql += c.getOpis() + "') returning id";
+		System.out.println(sql);
 		
-		String sql = "insert into ekosmiec.kontenery(ref_grupa, ref_rodzaj_kontenera, lokalizacja, opis) values (?,?,?,ST_GeomFromText('Point(? ?)'),?) returning id";
-		
-		return getJdbcTemplate().queryForInt(sql, new Object[]{c.getRef_grupa(), c.getRef_rodzaj_kontenera(), c.getLokalizacjaX(), c.getLokalizacjaY(), c.getOpis()});
+		return getJdbcTemplate().queryForInt(sql);
 	}
 	
-	public Integer getTotalCapacity(int groupId){
+	public Float getTotalCapacity(int groupId){
 		
-		String sql = "select count(r.pojemnosc) from ekosmiec.kontenery k, ekosmiec.rodzaje_kontenerow r where r.id = k.ref_rodzaj_kontenera and k.ref_grupa = ?";
+		String sql = "select sum(r.pojemnosc) from ekosmiec.kontenery k, ekosmiec.rodzaje_kontenerow r where r.id = k.ref_rodzaj_kontenera and k.ref_grupa = ?";
 		
-		return getJdbcTemplate().queryForInt(sql, new Object[]{groupId});
+		return getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Float.class);
 		
 	}
 	
@@ -176,7 +189,8 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql, rm);
 	}
 	
-	public void deleteSchedule(int groupId){
+
+	public void deleteSchedule(){
 		
 		getJdbcTemplate().update("delete from ekosmiec.harmonogram");
 		
