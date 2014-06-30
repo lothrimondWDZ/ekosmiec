@@ -118,7 +118,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		getJdbcTemplate().update("delete from ekosmiec.grupy where id = ?", args);
 	}
 	
-	public List<ContainerType> getContnatinerTypes(){
+	public List<ContainerType> getContainerTypes(){
 		
 		String sql = "select * from ekosmiec.rodzaje_kontenerow";
 		RowMapper<ContainerType> rm = ParameterizedBeanPropertyRowMapper
@@ -129,7 +129,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	}
 	
 	
-	public List<ContainerType> getContnatinerType(int id){
+	public List<ContainerType> getContainerType(int id){
 		
 		String sql = "select * from ekosmiec.rodzaje_kontenerow where id = ?";
 		RowMapper<ContainerType> rm = ParameterizedBeanPropertyRowMapper

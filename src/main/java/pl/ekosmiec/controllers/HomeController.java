@@ -35,45 +35,16 @@ public class HomeController {
 	}
 	@RequestMapping(value = RAPORT, method = RequestMethod.GET)
 	public String raportPage(final ModelMap modelMap) {
+		modelMap.addAttribute("annualReports", databaseConnection.getAnnualReport());
 		return RAPORT;
 	}
 	
 	@RequestMapping(value = ROOT, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
-	
-
-/*		generatorService.ustawKoniecHarmonogramu(new LocalDate(new Date()));
-		System.out.println(generatorService.pobierzKoniecHarmonogramu());*/
-		
-/*		
-		System.out.println(databaseConnection.test());
-		System.out.println(databaseConnection.getGroupHistory(1));
-		System.out.println(databaseConnection.getGroups());
-		System.out.println(databaseConnection.getGroups(1));
-		System.out.println(databaseConnection.getWasteType(1));
-		System.out.println(databaseConnection.getWasteTypes());
-		System.out.println(databaseConnection.getContnatinerTypes());
-		System.out.println(databaseConnection.getContnatinerType(1));
-		System.out.println(databaseConnection.getContainers(1));
-		System.out.println(databaseConnection.getWorkingDaysOfTheWeek());
-		System.out.println(databaseConnection.getFreeDays());
-		System.out.println(databaseConnection.getSchedule());
-		*/
-		
 		System.out.println(databaseConnection.getAnnualReport(1));
 		System.out.println(databaseConnection.getAnnualReport());
 		System.out.println(databaseConnection.getMonthlyReport(1,2014));
 		System.out.println(databaseConnection.getMonthlyReport(2014));
-		
-		
-		
-/*		WasteType wt = new WasteType();
-		wt.setNazwa("Harnaś");
-		wt.setPrzelicznik(2);
-		wt.setOpis("");
-		System.out.println(databaseConnection.addWasteType(wt));*/
-		
 		return "home";
 	}
 }
