@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import pl.ekosmiec.services.ContainersService;
 import pl.ekosmiec.beans.DostepnyCzas;
 import pl.ekosmiec.beans.Grupa;
-import pl.ekosmiec.beans.Harmonogram;
 import pl.ekosmiec.beans.Historia;
 import pl.ekosmiec.beans.OdbiorSmieci;
 import pl.ekosmiec.beans.PlanowanyOdbiorSmieci;
@@ -41,10 +40,6 @@ public class ServiceConfig {
 	@Bean
 	public Grupa grupa(){
 		return new Grupa();
-	}
-	@Bean
-	public Harmonogram harmonogram(){
-		return new Harmonogram();
 	}
 	@Bean
 	public Historia historia(){

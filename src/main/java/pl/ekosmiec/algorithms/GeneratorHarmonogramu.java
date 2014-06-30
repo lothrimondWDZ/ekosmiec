@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 
 import pl.ekosmiec.beans.DostepnyCzas;
 import pl.ekosmiec.beans.Grupa;
-import pl.ekosmiec.beans.Harmonogram;
 import pl.ekosmiec.beans.Historia;
 import pl.ekosmiec.beans.OdbiorSmieci;
 import pl.ekosmiec.beans.PlanowanyOdbiorSmieci;
@@ -48,7 +47,7 @@ public class GeneratorHarmonogramu {
 	
 	//private DAOGeneratora daoGeneratora;
 	private int tryb;
-	private Harmonogram staryHarmonogram;
+	private List<PlanowanyOdbiorSmieci> staryHarmonogram;
 	
 	public GeneratorHarmonogramu(GeneratorService generatorService, int tryb){
 		this.generatorService = generatorService;
@@ -56,7 +55,7 @@ public class GeneratorHarmonogramu {
 		this.tryb = tryb;
 	}
 	
-	public Harmonogram nowyHarmonogram(Date poczatek, Date koniec, Harmonogram staryHarmonogram){
+	public List<PlanowanyOdbiorSmieci> nowyHarmonogram(Date poczatek, Date koniec, List<PlanowanyOdbiorSmieci> staryHarmonogram){
 		
 		this.poczatek = poczatek;
 		this.koniec = koniec;
@@ -66,11 +65,11 @@ public class GeneratorHarmonogramu {
 		przewidywanieProdukcji();
 		DostepnyCzas dostepnyCzas = generatorService.pobierzDostepnyCzas(new LocalDate(poczatek), new LocalDate(koniec));
 		//TODO Pobieranie Harmonogramu akutalnego, wczesniej spr. trybu
-		Harmonogram harmonogram = ulozHarmonogram(dostepnyCzas);
+		List<PlanowanyOdbiorSmieci> harmonogram = ulozHarmonogram(dostepnyCzas);
 		
-		harmonogram.sortuj();
+		Collections.sort(harmonogram);
 		
-		for (PlanowanyOdbiorSmieci pos : harmonogram.getPlan()){
+		for (PlanowanyOdbiorSmieci pos : harmonogram){
 			System.out.println(pos.getData() + "   " + dostepnyCzas.dostepneMinuty(pos.getData()) + "   " + pos.getIdGrupy() + "   " + pos.getData().dayOfWeek().getAsText());
 		}
 
@@ -227,7 +226,7 @@ public class GeneratorHarmonogramu {
 		return przewidywanaProdukcja;
 	}
 	
-	private Harmonogram ulozHarmonogram(DostepnyCzas dostepnyCzas){
+	private List<PlanowanyOdbiorSmieci> ulozHarmonogram(DostepnyCzas dostepnyCzas){
 	
 
 		
@@ -395,13 +394,8 @@ public class GeneratorHarmonogramu {
 			
 		}
 		
-		
-		Harmonogram nowyHarmonogram = new Harmonogram();
-		nowyHarmonogram.setPoczatek(poczatek);
-		nowyHarmonogram.setKoniec(koniec);
-		nowyHarmonogram.setPlan(plan);
-		System.out.println("Początek : " + poczatek);
-		return nowyHarmonogram;
+
+		return plan;
 	}
 	
 	//okreslenie od kiedy przewidujemy produkcje smieci - data ostaniego (nawet zaplanowanego) wywozu
@@ -412,7 +406,7 @@ public class GeneratorHarmonogramu {
 		
 		if (tryb == Tryb.DOPISZ){
 			//TODO ustawic dlate dla dopisywania do harmonogramu
-			for (PlanowanyOdbiorSmieci pos : staryHarmonogram.getPlan()){
+			for (PlanowanyOdbiorSmieci pos : staryHarmonogram){
 				if (pos.getIdGrupy() == grupa.getId() && (ostatniWywoz.before(pos.getData().toDate())))
 					ostatniWywoz = pos.getData().toDate();
 			}

@@ -176,9 +176,20 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql, rm);
 	}
 	
-	public void deleteSchedlue(int groupId){
+	public void deleteSchedule(int groupId){
 		
 		getJdbcTemplate().update("delete from ekosmiec.harmonogram");
+		
+	}
+	
+	public boolean isScheduleEmpty(){
+		
+		int i = getJdbcTemplate().queryForInt("select count(*) from ekosmiec.harmonogram where data > now()");
+		
+		if (i==0)
+			return true;
+		else
+			return false;
 		
 	}
 	

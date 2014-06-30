@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pl.ekosmiec.algorithms.GeneratorHarmonogramu;
-import pl.ekosmiec.beans.Harmonogram;
 import pl.ekosmiec.data.DatabaseConnection;
 import pl.ekosmiec.entities.WasteType;
 import pl.ekosmiec.services.GeneratorService;
@@ -42,21 +41,7 @@ public class HomeController {
 	@RequestMapping(value = ROOT, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		Date poczatek = new Date(2014- 1900, 1-1, 1);
-		Date koniec = new Date(2015 - 1900, 12-1, 30);
-		GeneratorHarmonogramu gh = new GeneratorHarmonogramu(generatorService, GeneratorHarmonogramu.Tryb.NOWY);
-		Harmonogram harmonogram1 = gh.nowyHarmonogram( poczatek, koniec, null);
-		
-	/*	poczatek = new Date(2015 - 1900, 1-1, 1);
-		koniec = new Date(2016 - 1900, 12-1, 30);
-		gh = new GeneratorHarmonogramu(generatorService, GeneratorHarmonogramu.Tryb.NOWY);
-		Harmonogram harmonogram2 = gh.nowyHarmonogram( poczatek, koniec, null);
-		
-		poczatek = new Date(2015 - 1900, 1-1, 1);
-		koniec = new Date(2016 - 1900, 12-1, 30);
-		gh = new GeneratorHarmonogramu(generatorService, GeneratorHarmonogramu.Tryb.DOPISZ);
-		Harmonogram harmonogram3 = gh.nowyHarmonogram( poczatek, koniec, harmonogram1);*/
-		
+	
 
 /*		generatorService.ustawKoniecHarmonogramu(new LocalDate(new Date()));
 		System.out.println(generatorService.pobierzKoniecHarmonogramu());*/

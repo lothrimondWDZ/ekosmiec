@@ -1,6 +1,7 @@
 package pl.ekosmiec.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import pl.ekosmiec.algorithms.GeneratorHarmonogramu;
 import pl.ekosmiec.beans.DostepnyCzas;
 import pl.ekosmiec.beans.Grupa;
 import pl.ekosmiec.beans.Historia;
 import pl.ekosmiec.beans.OdbiorSmieci;
+import pl.ekosmiec.beans.PlanowanyOdbiorSmieci;
 import pl.ekosmiec.beans.WspolczynnikiAlgorytmu;
 import pl.ekosmiec.data.DatabaseConnection;
 import pl.ekosmiec.data.TymczasoweDane;
@@ -34,6 +37,44 @@ public class GeneratorService {
 		
 		List<WorkingDayOfTheWeek> dniPracujace = databaseConnection.getWorkingDaysOfTheWeek();
 	
+	}
+	
+	private List<PlanowanyOdbiorSmieci> nowyHarmonogram(){
+		//TODO usuwanie harmonogramu
+		Date poczatek = new Date();
+		Date koniec = new LocalDate(new Date()).plusYears(1).toDate();
+		GeneratorHarmonogramu gh = new GeneratorHarmonogramu(this, GeneratorHarmonogramu.Tryb.NOWY);
+		List<PlanowanyOdbiorSmieci> harmonogram = gh.nowyHarmonogram( poczatek, koniec, null);
+		//TODO dodawanie harmonogramu
+		//TODO akutalizacja zmiennej konca harmonogramu
+		return harmonogram;
+	}
+	
+	private void uzupelnianieHarmonogramu(){
+		
+		Date poczatek = this.pobierzKoniecHarmonogramu().toDate();
+		Date koniec = new LocalDate(new Date()).plusYears(1).toDate();
+		if (poczatek.before(koniec)){
+			GeneratorHarmonogramu gh = new GeneratorHarmonogramu(this, GeneratorHarmonogramu.Tryb.DOPISZ);
+			List<PlanowanyOdbiorSmieci> harmonogram = gh.nowyHarmonogram( this.pobierzKoniecHarmonogramu().toDate(), koniec, this.pobierzHarmonogram());
+			//TODO dodawanie harmonogramu
+			//TODO akutalizacja zmiennej konca harmonogramu
+		}
+	}
+	
+	public List<PlanowanyOdbiorSmieci> zaktualizujIZwrocHarmonogram(){
+		
+		List<PlanowanyOdbiorSmieci> harmonogram;
+		
+		if (databaseConnection.isScheduleEmpty()){
+			harmonogram = nowyHarmonogram();
+		}else{
+			
+			uzupelnianieHarmonogramu();
+			harmonogram = this.pobierzHarmonogram();
+		}
+		
+		return harmonogram;
 	}
 	
 	public List<Grupa> pobierzGrupyZHistoria(){
@@ -145,6 +186,21 @@ public class GeneratorService {
 			d = new LocalDate(s);
 
 		return d;
+	}
+	
+	public List<PlanowanyOdbiorSmieci> pobierzHarmonogram(){
+		
+		List<WasteDisposal> wdl = databaseConnection.getSchedule();
+		List<PlanowanyOdbiorSmieci> posl = new ArrayList<PlanowanyOdbiorSmieci>(wdl.size());
+		
+		for (WasteDisposal wd : wdl){
+			PlanowanyOdbiorSmieci pos = new PlanowanyOdbiorSmieci();
+			pos.setData(new LocalDate(wd.getData()));
+			pos.setIdGrupy(wd.getRef_grupa());
+			posl.add(pos);
+		}
+		
+		return posl;
 	}
 
 	
