@@ -248,7 +248,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	
 	public List<Statistics> getAnnualReport(int wasteTypeId){
 		
-		String sql = "select date_part('year', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and g.ref_rodzaj_odpadow = ? group by okres";
+		String sql = "select date_part('year', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and g.ref_rodzaj_odpadow = ? group by okres order by okres";
 		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(Statistics.class);
 		return getJdbcTemplate().query(sql, new Object[]{wasteTypeId}, rm);
@@ -257,7 +257,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	
 	public List<Statistics> getAnnualReport(){
 		
-		String sql = "select date_part('year', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa group by okres";
+		String sql = "select date_part('year', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa group by okres order by okres";
 		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(Statistics.class);
 		return getJdbcTemplate().query(sql, rm);
@@ -266,7 +266,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	
 	public List<Statistics> getMonthlyReport(int wasteTypeId, int year){
 		
-		String sql = "select date_part('month', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and g.ref_rodzaj_odpadow = ? and date_part('year', h.data) = ? group by okres";
+		String sql = "select date_part('month', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and g.ref_rodzaj_odpadow = ? and date_part('year', h.data) = ? group by okres order by okres";
 		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(Statistics.class);
 		return getJdbcTemplate().query(sql, new Object[]{wasteTypeId, year}, rm);
@@ -275,7 +275,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	
 	public List<Statistics> getMonthlyReport(int year){
 		
-		String sql = "select date_part('month', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and date_part('year', h.data) = ? group by okres";
+		String sql = "select date_part('month', h.data) okres, sum(g.czas_wywozu) czas_pracy, sum(h.odebrano) ilosc_odpadow from ekosmiec.historia h, ekosmiec.grupy g where g.id = h.ref_grupa and date_part('year', h.data) = ? group by okres order by okres";
 		RowMapper<Statistics> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(Statistics.class);
 		return getJdbcTemplate().query(sql, new Object[]{year}, rm);
