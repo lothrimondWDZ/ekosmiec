@@ -9,12 +9,27 @@
 </head>
 <body>
 <div layout:fragment="decorator-content">
-Raport<br/>
+<p>Raport : <span th:if="${rodzaj_odpadow != null}" th:text="${wasteTypes[rodzaj_odpadow - 1].nazwa}"></span><span th:if="${rok != null}" th:text=" ${rok}"></span></p>
+
+<p th:if="${rok == null}"><a th:href="@{/raport}">Wszystkie</a> | <a th:href="@{/raport(rodzaj_odpadow=1)}">Surowce</a> | <a th:href="@{/raport(rodzaj_odpadow=2)}">Mokre BIO</a> | <a th:href="@{/raport(rodzaj_odpadow=3)}">Pozostałe</a>
+</p>
+
+<p th:if="${rok != null}"><a th:href="@{/raport(rok=${rok})}">Wszystkie</a> | <a th:href="@{/raport(rodzaj_odpadow=1, rok=${rok})}">Surowce</a> | <a th:href="@{/raport(rodzaj_odpadow=2, rok=${rok})}">Mokre BIO</a> | <a th:href="@{/raport(rodzaj_odpadow=3,rok=${rok})}">Pozostałe</a>
+</p>
+
 <table>
-	<tr th:each="report : ${annualReports}">
-		<td><span th:text="${'Okres: ' + report.okres}"></span></td>
-		<td><span th:text="${'Ilość odpadów: ' + report.ilosc_odpadow}"></span></td>
-		<td><span th:text="${'Czas pracy: ' + report.czas_pracy}"></span></td>
+	<tr>
+		<td> Okres </td>
+		<td> Ilość odpadów</td>
+		<td> Czas pracy </td> 
+	</tr>
+	<tr th:each="report : ${reports}">
+		<td>
+			<a th:if="${rok == null}" th:href="@{/raport(rok=${report.okres})}" ><span th:text="${report.okres}"></span></a>
+			<span th:if="${rok != null}" th:text="${report.okres}"></span>
+			</td>
+		<td><span th:text="${report.ilosc_odpadow}"></span></td>
+		<td><span th:text="${report.czas_pracy}"></span></td>
 	</tr>
 </table>
 </div>
