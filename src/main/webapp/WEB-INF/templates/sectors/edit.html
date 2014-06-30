@@ -7,11 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Bioodpady</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 // <![CDATA[
 $(document).ready(function() {
 	var map = null
+	var bounds = new google.maps.LatLngBounds();
+	var conts = [];
 	var markers = [];
+	var containers = /*[[${containers}]]*/null;
 
   function initialize() {
     var mapOptions = {
@@ -28,10 +31,26 @@ $(document).ready(function() {
   	  $('#lon').val(lng);
   	  placeMarker(event.latLng);
     });
-    
+    showAllContainers(map);
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
+  function showAllContainers(map){
+	  for (var i=0; i < containers.length; i++){
+		  var latLng = new google.maps.LatLng(containers[i].lokalizacjaX,containers[i].lokalizacjaY);
+		  var marker = new google.maps.Marker({
+		        position: latLng, 
+		        map: map
+		    });
+		    conts.push(marker);
+		    bounds.extend(latLng);
+	  }
+	  for (var i = 0; i < conts.length; i++) {
+		    conts[i].setMap(map);
+	  }
+	  map.fitBounds(bounds);
+  }
+  
   function placeMarker(location) {
 	  deleteMarkers();
 	    var marker = new google.maps.Marker({
@@ -39,6 +58,7 @@ $(document).ready(function() {
 	        map: map
 	    });
 	    markers.push(marker);
+	    bounds.extend(location);
   }
   
   function setAllMap(map) {
