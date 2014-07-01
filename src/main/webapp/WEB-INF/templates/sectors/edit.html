@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 <form role="form" action="#" th:action="@{/sectors/empty_trash}" th:object="${groupHistory}" method="post">	
 <input type="hidden" th:field="*{ref_grupa}"/>
-<table>
+<table class="table table-hover">
 
 	<tr>
 	<td><label for="ilosc"><span>Ilość: </span></label></td>
@@ -109,15 +109,15 @@ $(document).ready(function() {
 
 <form action="#" >
 	<br/>
-<table>
+<table class="table table-hover">
 <tr>
 	<td align="left" valign="top">			
-		<table>
-            <tr>
-            <td><label for="odstep"> </label></td>
+		<table class="table table-hover">
+            <tr colspan="4">
+            <td colspan="4"><label for="odstep"> </label></td>
             </tr>
             <tr>
-            <td>Kontenery :</td>
+            <td colspan="4">Kontenery :</td>
             </tr>
             <tr>
 				<th> Pojemność </th>	
@@ -132,7 +132,7 @@ $(document).ready(function() {
 				<td><a th:href="@{/sectors/delete_container(containerId=${container.id}, groupId=${container.ref_grupa})}">[X]</a></td>
 			</tr>
 			<tr>
-            <td><label for="odstep"> </label></td>
+            <td colspan="4"><label for="odstep"> </label></td>
             </tr>
 
         </table>
@@ -142,9 +142,9 @@ $(document).ready(function() {
 </form>
 <form th:action="@{/sectors/add_container}" th:object="${container}" method="post">
 <input type="hidden" th:field="*{ref_grupa}"/>
-<table>
+<table class="table table-hover">
 <tr>
-         <td><label for="zmien">Dodaj kontener</label>:</td>
+         <td  colspan="2"><label for="zmien">Dodaj kontener</label>:</td>
             </tr>
             <tr>
             	<td>Pojemność :</td>
@@ -163,7 +163,7 @@ $(document).ready(function() {
             	<td><input type="text" id="lon" th:field="*{lokalizacjaY}"/> <br /></td>
             </tr>
             <tr>
-            	<td><input type="submit" value="Dodaj" /></td>
+            	<td colspan="2"><input type="submit" value="Dodaj" /></td>
             </tr>
             </table>
 </form>

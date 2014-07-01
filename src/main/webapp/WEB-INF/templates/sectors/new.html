@@ -15,7 +15,7 @@
 
 
 <form role="form" action="#" th:action="@{/sectors/new}" th:object="${group}" method="post">	
-<table>
+<table class="table table-hover">
 <tr>
 <td><label for="nazwa"><span>Nazwa: </span></label></td>
 <td><input type="text" id="nazwa" th:field="*{nazwa}" placeholder="Nowa grupa"/><br/></td>
