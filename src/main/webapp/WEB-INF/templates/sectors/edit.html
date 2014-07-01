@@ -105,8 +105,33 @@ $(document).ready(function() {
 </table>
 </form>
 
-
-
+<form th:action="@{/sectors/add_container}" th:object="${container}" method="post">
+<input type="hidden" th:field="*{ref_grupa}"/>
+<table class="table table-hover">
+<tr>
+         <td  colspan="2"><label for="zmien">Dodaj kontener</label>:</td>
+            </tr>
+            <tr>
+            	<td>Pojemność :</td>
+            	<td><select id="pojemnosc" name="pojemnosc" th:field="*{ref_rodzaj_kontenera}">
+   					<option th:each="type : ${containerTypes}" 
+          					th:value="${type.id}" 
+          					th:text="${type.nazwa}">Nazwa</option>
+					</select></td>
+            </tr>
+            <tr>
+            	<td>Długość geograficzna :</td>
+            	<td><input type="text" id="lat"  th:field="*{lokalizacjaX}"/> <br /></td>
+            </tr>
+            <tr>
+            	<td>Szerokość geograficzna :</td>
+            	<td><input type="text" id="lon" th:field="*{lokalizacjaY}"/> <br /></td>
+            </tr>
+            <tr>
+            	<td colspan="2"><input type="submit" value="Dodaj" /></td>
+            </tr>
+            </table>
+</form>
 <form action="#" >
 	<br/>
 <table class="table table-hover">
@@ -139,33 +164,6 @@ $(document).ready(function() {
 	</td>
 </tr>
 </table>
-</form>
-<form th:action="@{/sectors/add_container}" th:object="${container}" method="post">
-<input type="hidden" th:field="*{ref_grupa}"/>
-<table class="table table-hover">
-<tr>
-         <td  colspan="2"><label for="zmien">Dodaj kontener</label>:</td>
-            </tr>
-            <tr>
-            	<td>Pojemność :</td>
-            	<td><select id="pojemnosc" name="pojemnosc" th:field="*{ref_rodzaj_kontenera}">
-   					<option th:each="type : ${containerTypes}" 
-          					th:value="${type.id}" 
-          					th:text="${type.nazwa}">Nazwa</option>
-					</select></td>
-            </tr>
-            <tr>
-            	<td>Długość geograficzna :</td>
-            	<td><input type="text" id="lat"  th:field="*{lokalizacjaX}"/> <br /></td>
-            </tr>
-            <tr>
-            	<td>Szerokość geograficzna :</td>
-            	<td><input type="text" id="lon" th:field="*{lokalizacjaY}"/> <br /></td>
-            </tr>
-            <tr>
-            	<td colspan="2"><input type="submit" value="Dodaj" /></td>
-            </tr>
-            </table>
 </form>
 </div>
 	<div class="col-md-6">
