@@ -10,7 +10,17 @@
 <body>
 <div layout:fragment="decorator-content">
 Grafik pracy<br/>
-<form role="form" action="#" th:action="@{/schedule/work_schedule}" th:object="${scheduleForm}" method="post">		
+<form role="form" action="#" th:action="@{/schedule/work_schedule}" th:object="${scheduleForm}" method="post">	
+
+<input type="hidden" th:field="*{monday.dzien_tygodnia}"/>
+<input type="hidden" th:field="*{tuesday.dzien_tygodnia}"/>
+<input type="hidden" th:field="*{wednesday.dzien_tygodnia}"/>
+<input type="hidden" th:field="*{thursday.dzien_tygodnia}"/>
+<input type="hidden" th:field="*{friday.dzien_tygodnia}"/>
+<input type="hidden" th:field="*{saturday.dzien_tygodnia}"/>
+<input type="hidden" th:field="*{sunday.dzien_tygodnia}"/>
+
+	
 <label for="monday"><span>Poniedziałek: </span></label>
 <input type="text" id="monday" th:field="*{monday.ilosc}" placeholder="Liczba godzin"/><br/>
 <label for="tuesday"><span>Wtorek: </span></label>
