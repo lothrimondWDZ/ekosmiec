@@ -4,6 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="main_template">
 <head>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Bioodpady</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -127,6 +128,18 @@ $(document).ready(function() {
             <td><label for="odstep"> </label></td>
             </tr>
             <tr>
+            	<td><input type="submit" value="Zapisz" />
+            	<input type="submit" value="Anuluj" />
+            	</td>
+            </tr>
+        </table>
+	</td>
+</tr>
+</table>
+</form>
+<form>
+<table>
+<tr>
             	<td><label for="zmien">Dodaj kontener</label>:</td>
             </tr>
             <tr>
@@ -148,15 +161,7 @@ $(document).ready(function() {
             <tr>
             	<td><input type="submit" value="Dodaj" /></td>
             </tr>
-            <tr>
-            	<td><input type="submit" value="Zapisz" />
-            	<input type="submit" value="Anuluj" />
-            	</td>
-            </tr>
-        </table>
-	</td>
-</tr>
-</table>
+            </table>
 </form>
 </div>
 	<div class="col-md-6">
