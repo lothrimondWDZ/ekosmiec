@@ -167,7 +167,7 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		sql += c.getRef_grupa() + "','";
 		sql += c.getRef_rodzaj_kontenera() + "',";
 		sql += "ST_GeomFromText('Point(" +  Double.toString(c.getLokalizacjaX()) + " " + Double.toString(c.getLokalizacjaY()) + ")'),'";
-		sql += this.getContainerType(c.getRef_rodzaj_kontenera()).getNazwa() + "') returning id";
+		sql += this.getContainerType(c.getRef_rodzaj_kontenera()).getOpis() + "') returning id";
 		System.out.println(sql);
 		
 		return getJdbcTemplate().queryForInt(sql);
@@ -256,6 +256,11 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		
 		return getJdbcTemplate().queryForInt(sql, new Object[]{fd.getData()});
 	
+	}
+	
+	public void deleteFreeDay(int id){
+		
+		getJdbcTemplate().update("delete from ekosmiec.dni_wolne where id =?", new Object[]{id});
 	}
 	
 	public List<Statistics> getAnnualReport(int wasteTypeId){

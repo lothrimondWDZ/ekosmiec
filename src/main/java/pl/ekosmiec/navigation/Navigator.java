@@ -16,4 +16,6 @@ public class Navigator {
 	public static final String EMPTY_TRASH = "sectors/empty_trash";
 	public static final String ADD_CONTAINER = "/sectors/add_container";
 	public static final String DELETE_CONTAINER = "/sectors/delete_container";
+	public static final String ADD_FREE_DAY = "/schedule/add_free_day";
+	public static final String DELETE_FREE_DAY = "/schedule/delete_free_day";
 }

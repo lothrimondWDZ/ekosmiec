@@ -1,6 +1,8 @@
 package pl.ekosmiec.controllers;
 
 import static pl.ekosmiec.navigation.Navigator.SCHEDULE;
+import static pl.ekosmiec.navigation.Navigator.ADD_FREE_DAY;
+import static pl.ekosmiec.navigation.Navigator.DELETE_FREE_DAY;
 import static pl.ekosmiec.navigation.Navigator.WORK_SCHEDULE;
 import static pl.ekosmiec.navigation.Navigator.DOWNLOAD_SCHEDULE;
 import static pl.ekosmiec.navigation.Navigator.NEW_SCHEDULE;
@@ -30,6 +32,7 @@ import pl.ekosmiec.entities.Group;
 import pl.ekosmiec.entities.WasteDisposal;
 import pl.ekosmiec.entities.WorkingDayOfTheWeek;
 import pl.ekosmiec.services.GeneratorService;
+import pl.ekosmiec.view.FreeDayForm;
 import pl.ekosmiec.view.ScheduleForm;
 
 @Controller
@@ -82,8 +85,9 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value = WORK_SCHEDULE, method = RequestMethod.GET)
-	public String workSchedulePage(final @ModelAttribute ScheduleForm scheduleForm, final ModelMap modelMap) {
+	public String workSchedulePage(final @ModelAttribute ScheduleForm scheduleForm,final @ModelAttribute FreeDayForm freeDayForm, final ModelMap modelMap) {
 		List<WorkingDayOfTheWeek> weekDays = databaseConnection.getWorkingDaysOfTheWeek();
+		modelMap.addAttribute("freeDays", databaseConnection.getFreeDays());
 		for(WorkingDayOfTheWeek day : weekDays){
 			if(day.getDzien_tygodnia() == 1) {
 				scheduleForm.setMonday(day);
@@ -113,6 +117,22 @@ public class ScheduleController {
 		databaseConnection.updateWorkingDayOfTheWeek(scheduleForm.getFriday());
 		databaseConnection.updateWorkingDayOfTheWeek(scheduleForm.getSaturday());
 		databaseConnection.updateWorkingDayOfTheWeek(scheduleForm.getSunday());
+		return "redirect:" + WORK_SCHEDULE;
+	}
+	
+	@RequestMapping(value = ADD_FREE_DAY, method = RequestMethod.POST)
+	public String addFreeDay(final @ModelAttribute FreeDayForm freeDayForm, final ModelMap modelMap) {
+		
+		databaseConnection.addFreeDay(freeDayForm.toFreeDay());
+		
+		return "redirect:" + WORK_SCHEDULE;
+	}
+	
+	@RequestMapping(value = DELETE_FREE_DAY, method = RequestMethod.GET)
+	public String deleteFreeDay(final @RequestParam Integer id, final ModelMap modelMap) {
+		
+		databaseConnection.deleteFreeDay(id);
+		
 		return "redirect:" + WORK_SCHEDULE;
 	}
 

@@ -9,7 +9,6 @@
 </head>
 <body>
 <div layout:fragment="decorator-content">
-Grafik pracy<br/>
 <form role="form" action="#" th:action="@{/schedule/work_schedule}" th:object="${scheduleForm}" method="post">	
 
 <input type="hidden" th:field="*{monday.dzien_tygodnia}"/>
@@ -20,7 +19,7 @@ Grafik pracy<br/>
 <input type="hidden" th:field="*{saturday.dzien_tygodnia}"/>
 <input type="hidden" th:field="*{sunday.dzien_tygodnia}"/>
 
-<table>
+<table  class="table table-hover">
 <tr>
 <td><label for="monday"><span>Poniedziałek: </span></label></td>
 <td><input type="text" id="monday" th:field="*{monday.ilosc}" placeholder="Liczba godzin"/><br/></td>
@@ -50,11 +49,25 @@ Grafik pracy<br/>
 <td><input type="text" id="sunday" th:field="*{sunday.ilosc}" placeholder="Liczba godzin"/><br/></td>
 </tr>
 <tr>
-<td><input type="submit" value="Zapisz" /></td>
 <td></td>
+<td><input type="submit" value="Zapisz" /></td>
 </tr>
 </table>
 </form>
+<br/>
+<label>Wolne dni</label>
+<form role="form" action="#" th:action="@{/schedule/add_free_day}" th:object="${freeDayForm}" method="post">
+<input type="text" th:field="*{day}"/>Dzień<br/>
+<input type="text" th:field="*{month}"/>Miesiąc
+<input type="submit" value="Dodaj" />
+</form>	
+<table class="table table-hover">
+			<tr th:each="freeDay : ${freeDays}">
+				<td><span th:text="${freeDay}"></span></td>
+				<td><a th:href="@{/schedule/delete_free_day(id=${freeDay.id})}">[X]</a></td>
+			</tr>
+</table>
+
 </div>
 </body>
 </html>
