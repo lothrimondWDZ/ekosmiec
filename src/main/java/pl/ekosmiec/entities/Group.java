@@ -8,10 +8,10 @@ public class Group {
     private int id;
     private String nazwa;
     private int ref_rodzaj_odpadow;
-    private int czas_wywozu;
-    private float wstepna_czestotliwosc;
-    private float min_czestotliwosc;
-    private boolean autoharmonogram;
+    private int czas_wywozu = 480;
+    private float wstepna_czestotliwosc = 1;
+    private float min_czestotliwosc = 0;
+    private boolean autoharmonogram = true;
     private Date poczatek_historii;
     private String opis;
 	public int getId() {
@@ -70,13 +70,15 @@ public class Group {
 	}
 	@Override
 	public String toString() {
-		return "Group [nazwa=" + nazwa + ", czas_wywozu=" + czas_wywozu
+		return "Group [id=" + id + ", nazwa=" + nazwa + ", ref_rodzaj_odpadow="
+				+ ref_rodzaj_odpadow + ", czas_wywozu=" + czas_wywozu
 				+ ", wstepna_czestotliwosc=" + wstepna_czestotliwosc
 				+ ", min_czestotliwosc=" + min_czestotliwosc
 				+ ", autoharmonogram=" + autoharmonogram
 				+ ", poczatek_historii=" + poczatek_historii + ", opis=" + opis
 				+ "]";
 	}
+
     
     
 }

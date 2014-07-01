@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="main_template">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Nowy sektor</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+<div layout:fragment="decorator-content">
+
+<label>Nowy sektor</label>
+
+
+<form role="form" action="#" th:action="@{/sectors/new}" th:object="${group}" method="post">	
+<table>
+<tr>
+<td><label for="nazwa"><span>Nazwa: </span></label></td>
+<td><input type="text" id="nazwa" th:field="*{nazwa}" placeholder="Nowa grupa"/><br/></td>
+</tr>
+<tr>
+            	<td>Rodzaj odpadów :</td>
+           		<td><select id="sektory" name="sektory" th:field="*{ref_rodzaj_odpadow}">
+   					<option th:each="type : ${wasteTypes}" 
+          					th:value="${type.id}" 
+          					th:text="${type.nazwa}">Nazwa</option>
+					</select></td>
+            </tr> 
+<tr>
+<td><label for="czas_wywozu"><span>Czas wywzou: </span></label></td>
+<td><input type="text" id="czas_wywozu" th:field="*{czas_wywozu}"/><br/></td>
+</tr>
+<tr>
+<td><label for="wstepna_czestotliwosc"><span>Wstępna częstotliwość: </span></label></td>
+<td><input type="text" id="wstepna_czestotliwosc" th:field="*{wstepna_czestotliwosc}"/><br/></td>
+</tr>
+<tr>
+<td><label for="autoharmonogram"><span>Automatyczny harmonogram: </span></label></td>
+<td><input type="checkbox" id="autoharmonogram" th:field="*{autoharmonogram}"/><br/></td>
+</tr>
+<tr>
+<td><label for="opis"><span>Opis: </span></label></td>
+<td><input type="text" id="opis" th:field="*{opis}"/><br/></td>
+</tr>
+
+<tr>
+<td><input type="submit" value="Zapisz" /></td>
+<td></td>
+</tr>
+</table>
+</form>
+
+
+
+
+<!--         	<tr>
+            	<td>Rodzaj odpadów :</td>
+           		<td><select id="sektory" name="sektory">
+   					<option th:each="type : ${wasteTypes}" 
+          					th:value="${type.id}" 
+          					th:text="${type.nazwa}">Nazwa</option>
+					</select></td>
+            </tr> -->
+
+
+</div>
+</body>
+</html>

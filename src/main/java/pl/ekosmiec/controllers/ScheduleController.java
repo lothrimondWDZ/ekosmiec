@@ -6,6 +6,7 @@ import static pl.ekosmiec.navigation.Navigator.HOME;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -23,6 +24,7 @@ import pl.ekosmiec.algorithms.GeneratorHarmonogramu;
 import pl.ekosmiec.beans.PlanowanyOdbiorSmieci;
 import pl.ekosmiec.data.DatabaseConnection;
 import pl.ekosmiec.entities.FullCalendarEvent;
+import pl.ekosmiec.entities.Group;
 import pl.ekosmiec.entities.WasteDisposal;
 import pl.ekosmiec.entities.WorkingDayOfTheWeek;
 import pl.ekosmiec.services.GeneratorService;
@@ -48,16 +50,21 @@ public class ScheduleController {
 	public @ResponseBody
 	List<FullCalendarEvent> downloadSchedule(@RequestParam String start, @RequestParam String end) {
 		
-		System.out.println(start + " " + end);
-
 		List<WasteDisposal> schedule = databaseConnection.getSchedule(new LocalDate(start).toDate(), new LocalDate(end).toDate());
 		List<FullCalendarEvent> calEvents = new ArrayList<FullCalendarEvent>(schedule.size());
+		List<Group> groups = databaseConnection.getGroups();
+		HashMap<Integer, String> idNazwaGrupy = new HashMap<Integer, String>();
+		
+		for (Group g : groups){
+			idNazwaGrupy.put(g.getId(), g.getNazwa());
+		}
 		
 		for (WasteDisposal wd : schedule){
 			FullCalendarEvent fce = new FullCalendarEvent();
-			fce.setTitle(Integer.toString(wd.getRef_grupa()));
+			fce.setTitle(idNazwaGrupy.get(wd.getRef_grupa()));
 			fce.setStart(new LocalDate(wd.getData()).toString());
 			fce.setAllDay(true);
+			fce.setUrl("/ekosmiec/sectors/edit/" + wd.getRef_grupa());
 			calEvents.add(fce);
 		}
 		
@@ -96,7 +103,7 @@ public class ScheduleController {
 		databaseConnection.updateWorkingDayOfTheWeek(scheduleForm.getFriday());
 		databaseConnection.updateWorkingDayOfTheWeek(scheduleForm.getSaturday());
 		databaseConnection.updateWorkingDayOfTheWeek(scheduleForm.getSunday());
-		return "redirect:" + HOME;
+		return "redirect:" + WORK_SCHEDULE;
 	}
 
 }

@@ -13,13 +13,10 @@
 <table>
 <tr th:each="sector : ${sectors}">
 	<td><a th:href="@{'/sectors/edit/' + ${sector.id}}"><span th:text="${sector.nazwa}"></span></a></td>
-	<td><a>[X]</a></td>
+	<td><a th:href="@{'/sectors/delete/' + ${sector.id}}">[X]</a></td>
 </tr>
 </table>
-<form action="#">		
-	<input type="text" name="sektor" id="sektor" /> <br />
-	<input type="submit" value="Dodaj" />
-</form>
+<p><a th:href="@{'/sectors/new/'}">[NOWY SEKTOR]</a></p>
 </div>
 </body>
 </html>

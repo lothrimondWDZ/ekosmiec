@@ -20,22 +20,40 @@ Grafik pracy<br/>
 <input type="hidden" th:field="*{saturday.dzien_tygodnia}"/>
 <input type="hidden" th:field="*{sunday.dzien_tygodnia}"/>
 
-	
-<label for="monday"><span>Poniedziałek: </span></label>
-<input type="text" id="monday" th:field="*{monday.ilosc}" placeholder="Liczba godzin"/><br/>
-<label for="tuesday"><span>Wtorek: </span></label>
-<input type="text" id="tuesday" th:field="*{tuesday.ilosc}" placeholder="Liczba godzin"/><br/>
-<label for="wednesday"><span>Środa: </span></label>
-<input type="text" id="wednesday" th:field="*{wednesday.ilosc}" placeholder="Liczba godzin"/><br/>
-<label for="thursday"><span>Czwartek: </span></label>
-<input type="text" id="thursday" th:field="*{thursday.ilosc}" placeholder="Liczba godzin"/><br/>
-<label for="friday"><span>Piątek: </span></label>
-<input type="text" id="friday" th:field="*{friday.ilosc}" placeholder="Liczba godzin"/><br/>
-<label for="saturday"><span>Sobota: </span></label>
-<input type="text" id="saturday" th:field="*{saturday.ilosc}" placeholder="Liczba godzin"/><br/>
-<label for="sunday"><span>Niedziela: </span></label>
-<input type="text" id="sunday" th:field="*{sunday.ilosc}" placeholder="Liczba godzin"/><br/>
-<input type="submit" value="Zapisz" />
+<table>
+<tr>
+<td><label for="monday"><span>Poniedziałek: </span></label></td>
+<td><input type="text" id="monday" th:field="*{monday.ilosc}" placeholder="Liczba godzin"/><br/></td>
+</tr>
+<tr>
+<td><label for="tuesday"><span>Wtorek: </span></label></td>
+<td><input type="text" id="tuesday" th:field="*{tuesday.ilosc}" placeholder="Liczba godzin"/><br/></td>
+</tr>
+<tr>
+<td><label for="wednesday"><span>Środa: </span></label></td>
+<td><input type="text" id="wednesday" th:field="*{wednesday.ilosc}" placeholder="Liczba godzin"/><br/></td>
+</tr>
+<tr>
+<td><label for="thursday"><span>Czwartek: </span></label></td>
+<td><input type="text" id="thursday" th:field="*{thursday.ilosc}" placeholder="Liczba godzin"/><br/></td>
+</tr>
+<tr>
+<td><label for="friday"><span>Piątek: </span></label></td>
+<td><input type="text" id="friday" th:field="*{friday.ilosc}" placeholder="Liczba godzin"/><br/></td>
+</tr>
+<tr>
+<td><label for="saturday"><span>Sobota: </span></label></td>
+<td><input type="text" id="saturday" th:field="*{saturday.ilosc}" placeholder="Liczba godzin"/><br/></td>
+</tr>
+<tr>
+<td><label for="sunday"><span>Niedziela: </span></label></td>
+<td><input type="text" id="sunday" th:field="*{sunday.ilosc}" placeholder="Liczba godzin"/><br/></td>
+</tr>
+<tr>
+<td><input type="submit" value="Zapisz" /></td>
+<td></td>
+</tr>
+</table>
 </form>
 </div>
 </body>
