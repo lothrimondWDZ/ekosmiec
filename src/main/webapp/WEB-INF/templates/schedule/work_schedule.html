@@ -10,110 +10,22 @@
 <body>
 <div layout:fragment="decorator-content">
 Grafik pracy<br/>
-<form action="#" >		
-		<TABLE>
-        	<TR>
-            	<td>Poniedziałek :</td>
-           		<td><select id="godziny" name="godziny">
-   					<option value="godziny0">0</option>
-  					<option value="godziny1">1</option>
-   					<option value="godziny2">2</option>
-   					<option value="godziny3">3</option>
-   					<option value="godziny4">4</option>
-   					<option value="godziny5">5</option>
-   					<option value="godziny6">6</option>
-   					<option value="godziny7">7</option>
-   					<option value="godziny8">8</option>
-					</select></td>
-            </TR>
-            <TR>
-            	<td>Wtorek :</td>
-           		<td><select id="godziny" name="godziny">
-   					<option value="godziny0">0</option>
-  					<option value="godziny1">1</option>
-   					<option value="godziny2">2</option>
-   					<option value="godziny3">3</option>
-   					<option value="godziny4">4</option>
-   					<option value="godziny5">5</option>
-   					<option value="godziny6">6</option>
-   					<option value="godziny7">7</option>
-   					<option value="godziny8">8</option>
-					</select></td>
-            </TR>
-            <TR>
-            	<td>Środa :</td>
-           		<td><select id="godziny" name="godziny">
-   					<option value="godziny0">0</option>
-  					<option value="godziny1">1</option>
-   					<option value="godziny2">2</option>
-   					<option value="godziny3">3</option>
-   					<option value="godziny4">4</option>
-   					<option value="godziny5">5</option>
-   					<option value="godziny6">6</option>
-   					<option value="godziny7">7</option>
-   					<option value="godziny8">8</option>
-					</select></td>
-            </TR>
-            <TR>
-            	<td>Czwartek :</td>
-           		<td><select id="godziny" name="godziny">
-   					<option value="godziny0">0</option>
-  					<option value="godziny1">1</option>
-   					<option value="godziny2">2</option>
-   					<option value="godziny3">3</option>
-   					<option value="godziny4">4</option>
-   					<option value="godziny5">5</option>
-   					<option value="godziny6">6</option>
-   					<option value="godziny7">7</option>
-   					<option value="godziny8">8</option>
-					</select></td>
-            </TR>
-            <TR>
-            	<td>Piątek :</td>
-           		<td><select id="godziny" name="godziny">
-   					<option value="godziny0">0</option>
-  					<option value="godziny1">1</option>
-   					<option value="godziny2">2</option>
-   					<option value="godziny3">3</option>
-   					<option value="godziny4">4</option>
-   					<option value="godziny5">5</option>
-   					<option value="godziny6">6</option>
-   					<option value="godziny7">7</option>
-   					<option value="godziny8">8</option>
-					</select></td>
-            </TR>
-            <TR>
-            	<td>Sobota :</td>
-           		<td><select id="godziny" name="godziny">
-   					<option value="godziny0">0</option>
-  					<option value="godziny1">1</option>
-   					<option value="godziny2">2</option>
-   					<option value="godziny3">3</option>
-   					<option value="godziny4">4</option>
-   					<option value="godziny5">5</option>
-   					<option value="godziny6">6</option>
-   					<option value="godziny7">7</option>
-   					<option value="godziny8">8</option>
-					</select></td>
-            </TR>
-            <TR>
-            	<td>Niedziela :</td>
-           		<td><select id="godziny" name="godziny">
-   					<option value="godziny0">0</option>
-  					<option value="godziny1">1</option>
-   					<option value="godziny2">2</option>
-   					<option value="godziny3">3</option>
-   					<option value="godziny4">4</option>
-   					<option value="godziny5">5</option>
-   					<option value="godziny6">6</option>
-   					<option value="godziny7">7</option>
-   					<option value="godziny8">8</option>
-					</select></td>
-            </TR>
-            <TR>
-            	<td><input type="submit" value="Zapisz" /></td>
-            </TR>
-        </TABLE>
+<form role="form" action="#" th:action="@{/schedule/work_schedule}" th:object="${scheduleForm}" method="post">		
+<label for="monday"><span>Poniedziałek: </span></label>
+<input type="text" id="monday" th:field="*{monday.ilosc}" placeholder="Liczba godzin"/><br/>
+<label for="tuesday"><span>Wtorek: </span></label>
+<input type="text" id="tuesday" th:field="*{tuesday.ilosc}" placeholder="Liczba godzin"/><br/>
+<label for="wednesday"><span>Środa: </span></label>
+<input type="text" id="wednesday" th:field="*{wednesday.ilosc}" placeholder="Liczba godzin"/><br/>
+<label for="thursday"><span>Czwartek: </span></label>
+<input type="text" id="thursday" th:field="*{thursday.ilosc}" placeholder="Liczba godzin"/><br/>
+<label for="friday"><span>Piątek: </span></label>
+<input type="text" id="friday" th:field="*{friday.ilosc}" placeholder="Liczba godzin"/><br/>
+<label for="saturday"><span>Sobota: </span></label>
+<input type="text" id="saturday" th:field="*{saturday.ilosc}" placeholder="Liczba godzin"/><br/>
+<label for="sunday"><span>Niedziela: </span></label>
+<input type="text" id="sunday" th:field="*{sunday.ilosc}" placeholder="Liczba godzin"/><br/>
+<input type="submit" value="Zapisz" />
 </form>
 </div>
 </body>

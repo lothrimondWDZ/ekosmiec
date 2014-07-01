@@ -23,7 +23,10 @@ public class WorkingDayOfTheWeek {
 	public void setIlosc(int ilosc) {
 		this.ilosc = ilosc;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "WorkingDayOfTheWeek [id=" + id + ", dzien_tygodnia="
+				+ dzien_tygodnia + ", ilosc=" + ilosc + "]";
+	}
 	
 }

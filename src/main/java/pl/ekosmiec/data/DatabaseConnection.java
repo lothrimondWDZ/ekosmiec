@@ -221,7 +221,6 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	}
 	
 	public Integer updateWorkingDayOfTheWeek(WorkingDayOfTheWeek wdotf){
-		
 		getJdbcTemplate().update("delete from ekosmiec.dni_robocze where dzien_tygodnia =?",new Object[]{wdotf.getDzien_tygodnia()});
 		
 		String sql = "insert into ekosmiec.dni_robocze (dzien_tygodnia, ilosc) values (?,?) returning id";
