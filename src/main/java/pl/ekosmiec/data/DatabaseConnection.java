@@ -1,5 +1,6 @@
 package pl.ekosmiec.data;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -187,6 +188,12 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		return getJdbcTemplate().query(sql, rm);
 	}
 	
+	public List<WasteDisposal> getSchedule(Date from, Date to){
+		String sql = "select * from ekosmiec.harmonogram where data between ? and ?";
+		RowMapper<WasteDisposal> rm = ParameterizedBeanPropertyRowMapper
+				.newInstance(WasteDisposal.class);
+		return getJdbcTemplate().query(sql, new Object[]{from, to}, rm);
+	}
 
 	public void deleteSchedule(){
 		
