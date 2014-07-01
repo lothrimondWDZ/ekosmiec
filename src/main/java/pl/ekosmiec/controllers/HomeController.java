@@ -65,10 +65,6 @@ public class HomeController {
 	
 	@RequestMapping(value = ROOT, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		System.out.println(databaseConnection.getAnnualReport(1));
-		System.out.println(databaseConnection.getAnnualReport());
-		System.out.println(databaseConnection.getMonthlyReport(1,2014));
-		System.out.println(databaseConnection.getMonthlyReport(2014));
 
 		
 		return "home";

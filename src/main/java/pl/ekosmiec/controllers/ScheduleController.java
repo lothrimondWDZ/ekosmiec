@@ -52,7 +52,6 @@ public class ScheduleController {
 
 		List<WasteDisposal> schedule = databaseConnection.getSchedule(new LocalDate(start).toDate(), new LocalDate(end).toDate());
 		List<FullCalendarEvent> calEvents = new ArrayList<FullCalendarEvent>(schedule.size());
-		System.out.println('x');
 		
 		for (WasteDisposal wd : schedule){
 			FullCalendarEvent fce = new FullCalendarEvent();
@@ -60,7 +59,6 @@ public class ScheduleController {
 			fce.setStart(new LocalDate(wd.getData()).toString());
 			fce.setAllDay(true);
 			calEvents.add(fce);
-			System.out.println(new LocalDate(wd.getData()).toString());
 		}
 		
 		return calEvents;

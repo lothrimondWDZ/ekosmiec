@@ -66,13 +66,13 @@ public class GeneratorHarmonogramu {
 		DostepnyCzas dostepnyCzas = generatorService.pobierzDostepnyCzas(new LocalDate(poczatek), new LocalDate(koniec));
 		//TODO Pobieranie Harmonogramu akutalnego, wczesniej spr. trybu
 		List<PlanowanyOdbiorSmieci> harmonogram = ulozHarmonogram(dostepnyCzas);
-		
+		/*
 		Collections.sort(harmonogram);
-		
+
 		for (PlanowanyOdbiorSmieci pos : harmonogram){
 			System.out.println(pos.getData() + "   " + dostepnyCzas.dostepneMinuty(pos.getData()) + "   " + pos.getIdGrupy() + "   " + pos.getData().dayOfWeek().getAsText());
 		}
-
+		*/
 		return harmonogram;
 	}
 
@@ -361,7 +361,7 @@ public class GeneratorHarmonogramu {
 							pos.setIdGrupy(rg.getGrupa().getId());
 							pos.setData(rg.getRozpatrywanaData());
 							plan.add(pos);
-							System.out.println(rg.getProcentoweZapelnienie());
+							//System.out.println(rg.getProcentoweZapelnienie());
 							rg.setOstatniWywoz(rozpatrywanaData);
 							}
 						else
@@ -432,7 +432,7 @@ public class GeneratorHarmonogramu {
 			}
 			
 		}
-		System.out.println(ostatniWywoz);
+		//System.out.println(ostatniWywoz);
 		return ostatniWywoz;
 	}
 }
