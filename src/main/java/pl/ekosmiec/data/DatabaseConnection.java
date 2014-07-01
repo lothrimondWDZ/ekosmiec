@@ -137,12 +137,12 @@ public class DatabaseConnection extends JdbcDaoSupport{
 	}
 	
 	
-	public List<ContainerType> getContainerType(int id){
+	public ContainerType getContainerType(int id){
 		
 		String sql = "select * from ekosmiec.rodzaje_kontenerow where id = ?";
 		RowMapper<ContainerType> rm = ParameterizedBeanPropertyRowMapper
 				.newInstance(ContainerType.class);
-		return getJdbcTemplate().query(sql, new Object[]{id}, rm);
+		return getJdbcTemplate().queryForObject(sql, new Object[]{id}, rm);
 		
 		
 	}
@@ -167,10 +167,16 @@ public class DatabaseConnection extends JdbcDaoSupport{
 		sql += c.getRef_grupa() + "','";
 		sql += c.getRef_rodzaj_kontenera() + "',";
 		sql += "ST_GeomFromText('Point(" +  Double.toString(c.getLokalizacjaX()) + " " + Double.toString(c.getLokalizacjaY()) + ")'),'";
-		sql += c.getOpis() + "') returning id";
+		sql += this.getContainerType(c.getRef_rodzaj_kontenera()).getNazwa() + "') returning id";
 		System.out.println(sql);
 		
 		return getJdbcTemplate().queryForInt(sql);
+	}
+	
+	public void deleteContainer(int id){
+		
+		getJdbcTemplate().update("delete from ekosmiec.kontenery where id = ?", new Object[]{id});
+		
 	}
 	
 	public Float getTotalCapacity(int groupId){

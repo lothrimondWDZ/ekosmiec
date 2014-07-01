@@ -1,10 +1,12 @@
 package pl.ekosmiec.controllers;
 
 import static pl.ekosmiec.navigation.Navigator.ALL_SECTORS;
+import static pl.ekosmiec.navigation.Navigator.ADD_CONTAINER;
 import static pl.ekosmiec.navigation.Navigator.EMPTY_TRASH;
 import static pl.ekosmiec.navigation.Navigator.EDIT_SECTORS;
 import static pl.ekosmiec.navigation.Navigator.NEW_SECTOR;
 import static pl.ekosmiec.navigation.Navigator.DELETE_SECTOR;
+import static pl.ekosmiec.navigation.Navigator.DELETE_CONTAINER;
 
 import java.util.Date;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.ekosmiec.data.DatabaseConnection;
+import pl.ekosmiec.entities.Container;
 import pl.ekosmiec.entities.Group;
 import pl.ekosmiec.entities.GroupHistory;
 
@@ -29,7 +32,7 @@ public class SectorsControllers {
 	private DatabaseConnection databaseConnection;
 	
 	@RequestMapping(value = EDIT_SECTORS + "/{sectorId}", method = RequestMethod.GET)
-	public String biowasteSectorsPage(final @ModelAttribute GroupHistory groupHistory, final @PathVariable Integer sectorId, final ModelMap modelMap) {
+	public String biowasteSectorsPage(final @ModelAttribute GroupHistory groupHistory,final @ModelAttribute Container container, final @PathVariable Integer sectorId, final ModelMap modelMap) {
 		Group g = databaseConnection.getGroupById(sectorId);
 		groupHistory.setRef_grupa(g.getId());
 		modelMap.addAttribute("currentSector", g);
@@ -37,6 +40,7 @@ public class SectorsControllers {
 		//modelMap.addAttribute("wasteTypes", databaseConnection.getWasteTypes());
 		modelMap.addAttribute("containers", databaseConnection.getContainers(sectorId));
 		modelMap.addAttribute("containerTypes", databaseConnection.getContainerTypes());
+		container.setRef_grupa(sectorId);
 		return EDIT_SECTORS;
 	}
 	
@@ -79,5 +83,21 @@ public class SectorsControllers {
 		databaseConnection.deleteGroup(id);
 		
 		return "redirect:" + ALL_SECTORS;
+	}
+	
+	@RequestMapping(value = ADD_CONTAINER, method = RequestMethod.POST)
+	public String saveSector(@ModelAttribute Container container, final ModelMap modelMap) {
+		
+		databaseConnection.addContainer(container);
+		
+		return "redirect:" + EDIT_SECTORS + "/" + container.getRef_grupa();
+	}
+	
+	@RequestMapping(value = DELETE_CONTAINER, method = RequestMethod.GET)
+	public String saveSector(@RequestParam Integer containerId,@RequestParam Integer groupId, final ModelMap modelMap) {
+
+		databaseConnection.deleteContainer(containerId);
+		
+		return "redirect:" + EDIT_SECTORS + "/" + groupId;
 	}
 }

@@ -14,4 +14,6 @@ public class Navigator {
 	public static final String DOWNLOAD_SCHEDULE = "/schedule/downloadSchedule";
 	public static final String NEW_SCHEDULE = "/schedule/new";
 	public static final String EMPTY_TRASH = "sectors/empty_trash";
+	public static final String ADD_CONTAINER = "/sectors/add_container";
+	public static final String DELETE_CONTAINER = "/sectors/delete_container";
 }

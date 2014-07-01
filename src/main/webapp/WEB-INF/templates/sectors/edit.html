@@ -120,14 +120,16 @@ $(document).ready(function() {
             <td>Kontenery :</td>
             </tr>
             <tr>
-				<th>Pojemność</th>	
-				<th>Długość geograficzna</th>
-				<th>Szerokość geograficzna</th>
+				<th> Pojemność </th>	
+				<th> Długość geograficzna </th>
+				<th> Szerokość geograficzna </th>
+				<th> Usuń </th>
 			</tr>
 			<tr th:each="container : ${containers}">
 				<td><span th:text="${container.opis}"></span></td>
 				<td><span th:text="${container.lokalizacjaX}"></span></td>
 				<td><span th:text="${container.lokalizacjaY}"></span></td>
+				<td><a th:href="@{/sectors/delete_container(containerId=${container.id}, groupId=${container.ref_grupa})}">[X]</a></td>
 			</tr>
 			<tr>
             <td><label for="odstep"> </label></td>
@@ -138,14 +140,15 @@ $(document).ready(function() {
 </tr>
 </table>
 </form>
-<form>
+<form th:action="@{/sectors/add_container}" th:object="${container}" method="post">
+<input type="hidden" th:field="*{ref_grupa}"/>
 <table>
 <tr>
-            	<td><label for="zmien">Dodaj kontener</label>:</td>
+         <td><label for="zmien">Dodaj kontener</label>:</td>
             </tr>
             <tr>
             	<td>Pojemność :</td>
-            	<td><select id="pojemnosc" name="pojemnosc">
+            	<td><select id="pojemnosc" name="pojemnosc" th:field="*{ref_rodzaj_kontenera}">
    					<option th:each="type : ${containerTypes}" 
           					th:value="${type.id}" 
           					th:text="${type.nazwa}">Nazwa</option>
@@ -153,11 +156,11 @@ $(document).ready(function() {
             </tr>
             <tr>
             	<td>Długość geograficzna :</td>
-            	<td><input type="text" id="lat"  /> <br /></td>
+            	<td><input type="text" id="lat"  th:field="*{lokalizacjaX}"/> <br /></td>
             </tr>
             <tr>
             	<td>Szerokość geograficzna :</td>
-            	<td><input type="text" id="lon" /> <br /></td>
+            	<td><input type="text" id="lon" th:field="*{lokalizacjaY}"/> <br /></td>
             </tr>
             <tr>
             	<td><input type="submit" value="Dodaj" /></td>
