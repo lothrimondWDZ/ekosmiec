@@ -2,6 +2,8 @@ package pl.ekosmiec.entities;
 
 import java.util.Date;
 
+import org.joda.time.LocalDate;
+
 public class GroupHistory {
     private Integer id;
     private int ref_grupa;

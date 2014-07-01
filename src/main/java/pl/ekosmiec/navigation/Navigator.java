@@ -13,4 +13,5 @@ public class Navigator {
 	public static final String WORK_SCHEDULE = "/schedule/work_schedule";
 	public static final String DOWNLOAD_SCHEDULE = "/schedule/downloadSchedule";
 	public static final String NEW_SCHEDULE = "/schedule/new";
+	public static final String EMPTY_TRASH = "sectors/empty_trash";
 }
