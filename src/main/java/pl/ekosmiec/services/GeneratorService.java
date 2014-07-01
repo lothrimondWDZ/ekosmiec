@@ -100,7 +100,10 @@ public class GeneratorService {
 			grupa.setCzasWywozuMinuty(g.getCzas_wywozu());
 			grupa.setMinCzestotliwosc(g.getMin_czestotliwosc());
 			grupa.setWstepnaCzestotliwosc(g.getWstepna_czestotliwosc());
-			grupa.setPojemnoscPrzeliczona((float)databaseConnection.getTotalCapacity(g.getId()) * databaseConnection.getWasteType(g.getRef_rodzaj_odpadow()).getPrzelicznik());
+			Float f = databaseConnection.getTotalCapacity(g.getId());
+			if (f == null)
+				f = new Float(0);
+			grupa.setPojemnoscPrzeliczona(f * databaseConnection.getWasteType(g.getRef_rodzaj_odpadow()).getPrzelicznik());
 			
 			historia = new Historia();
 			historia.setPoczatek(g.getPoczatek_historii());

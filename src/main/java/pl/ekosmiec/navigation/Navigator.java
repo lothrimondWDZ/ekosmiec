@@ -11,4 +11,6 @@ public class Navigator {
 	public static final String DELETE_SECTOR = "/sectors/delete";
 	public static final String SCHEDULE = "/schedule/schedule";
 	public static final String WORK_SCHEDULE = "/schedule/work_schedule";
+	public static final String DOWNLOAD_SCHEDULE = "/schedule/downloadSchedule";
+	public static final String NEW_SCHEDULE = "/schedule/new";
 }

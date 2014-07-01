@@ -2,6 +2,8 @@ package pl.ekosmiec.controllers;
 
 import static pl.ekosmiec.navigation.Navigator.SCHEDULE;
 import static pl.ekosmiec.navigation.Navigator.WORK_SCHEDULE;
+import static pl.ekosmiec.navigation.Navigator.DOWNLOAD_SCHEDULE;
+import static pl.ekosmiec.navigation.Navigator.NEW_SCHEDULE;
 import static pl.ekosmiec.navigation.Navigator.HOME;
 
 import java.util.ArrayList;
@@ -46,7 +48,15 @@ public class ScheduleController {
 		return SCHEDULE;
 	}
 	
-	@RequestMapping(value = "/schedule/downloadSchedule", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = NEW_SCHEDULE, method = RequestMethod.GET)
+	public String newSchedule(final ModelMap modelMap) 
+	{
+		generatorService.usunHarmonogram();
+		
+		return "redirect:" + SCHEDULE;
+	}
+	
+	@RequestMapping(value = DOWNLOAD_SCHEDULE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
 	List<FullCalendarEvent> downloadSchedule(@RequestParam String start, @RequestParam String end) {
 		
